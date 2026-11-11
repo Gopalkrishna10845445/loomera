@@ -1,0 +1,376 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
+@import "tailwindcss";
+
+:root {
+  /* LOOMERA Authoritative Brand Tokens */
+  --color-brand-primary: #264653;
+  --color-brand-accent: #E76F51;
+  --color-brand-highlight: #F4ED4F;
+  --color-brand-secondary: #2A9D8F;
+
+  /* Semantic UI Tokens */
+  --color-primary-text: #264653;
+  --color-secondary-text: #474741;
+  --color-muted-text: #787770;
+  --color-page-bg: #fbf9f4;
+  --color-surface-bg: #fbf9f4;
+  --color-card-bg: #ffffff;
+  --color-border: #e1ddd5;
+  --color-border-subtle: rgba(38, 70, 83, 0.12);
+  --color-focus: #2A9D8F;
+  --color-success: #2A9D8F;
+  --color-warning: #e9c46a;
+  --color-error: #E76F51;
+  --color-disabled: #dbdad5;
+
+  /* Base Material Surfaces (Ivory & Natural Linen Neutrals) */
+  --surface: #fbf9f4;
+  --surface-dim: #dbdad5;
+  --surface-bright: #fbf9f4;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f5f3ee;
+  --surface-container: #f0eee9;
+  --surface-container-high: #eae8e3;
+  --surface-container-highest: #e4e2dd;
+  --on-surface: #264653;
+  --on-surface-variant: #474741;
+  --inverse-surface: #264653;
+  --inverse-on-surface: #f2f1ec;
+  --outline: #787770;
+  --outline-variant: #c8c7be;
+  --surface-tint: #2A9D8F;
+
+  /* Primary Brand: Deep Blue-Green #264653 */
+  --primary: #264653;
+  --on-primary: #ffffff;
+  --primary-container: #264653;
+  --on-primary-container: #f5f3ee;
+  --inverse-primary: #c8c6c1;
+  --primary-fixed: #e5e2dd;
+  --primary-fixed-dim: #c8c6c1;
+  --on-primary-fixed: #264653;
+  --on-primary-fixed-variant: #474743;
+
+  /* Secondary Brand: Teal #2A9D8F */
+  --secondary: #2A9D8F;
+  --on-secondary: #ffffff;
+  --secondary-container: #e6f5f3;
+  --on-secondary-container: #264653;
+  --secondary-fixed: #d3f0ec;
+  --secondary-fixed-dim: #b2e4de;
+  --on-secondary-fixed: #164e47;
+  --on-secondary-fixed-variant: #20776c;
+
+  /* Accent: Terracotta #E76F51 */
+  --accent: #E76F51;
+  --on-accent: #ffffff;
+  --accent-container: #fbe6e1;
+  --on-accent-container: #7a2b19;
+
+  /* Highlight: Warm Yellow #F4ED4F */
+  --highlight: #F4ED4F;
+  --on-highlight: #264653;
+
+  /* Tertiary / Supporting */
+  --tertiary: #E76F51;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #fbe6e1;
+  --tertiary-fixed: #fcece8;
+  --tertiary-fixed-dim: #f7d5cc;
+  --on-tertiary-fixed: #4f1c10;
+  --on-tertiary-fixed-variant: #7a2b19;
+
+  /* Feedback */
+  --error: #E76F51;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+
+  --background: #fbf9f4;
+  --on-background: #264653;
+}
+
+@theme inline {
+  --color-brand-primary: var(--color-brand-primary);
+  --color-brand-accent: var(--color-brand-accent);
+  --color-brand-highlight: var(--color-brand-highlight);
+  --color-brand-secondary: var(--color-brand-secondary);
+
+  --color-primary-text: var(--color-primary-text);
+  --color-secondary-text: var(--color-secondary-text);
+  --color-muted-text: var(--color-muted-text);
+  --color-page-bg: var(--color-page-bg);
+  --color-surface-bg: var(--color-surface-bg);
+  --color-card-bg: var(--color-card-bg);
+  --color-border: var(--color-border);
+  --color-border-subtle: var(--color-border-subtle);
+  --color-focus: var(--color-focus);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-disabled: var(--color-disabled);
+
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-on-surface: var(--inverse-on-surface);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+  --color-surface-tint: var(--surface-tint);
+
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-inverse-primary: var(--inverse-primary);
+
+  --color-secondary: var(--secondary);
+  --color-on-secondary: var(--on-secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-on-secondary-container: var(--on-secondary-container);
+  --color-secondary-fixed: var(--secondary-fixed);
+  --color-secondary-fixed-dim: var(--secondary-fixed-dim);
+  --color-on-secondary-fixed: var(--on-secondary-fixed);
+  --color-on-secondary-fixed-variant: var(--on-secondary-fixed-variant);
+
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-accent-container: var(--accent-container);
+  --color-on-accent-container: var(--on-accent-container);
+
+  --color-highlight: var(--highlight);
+  --color-on-highlight: var(--on-highlight);
+
+  --color-tertiary: var(--tertiary);
+  --color-on-tertiary: var(--on-tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-tertiary-fixed: var(--tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--tertiary-fixed-dim);
+  --color-on-tertiary-fixed: var(--on-tertiary-fixed);
+  --color-on-tertiary-fixed-variant: var(--on-tertiary-fixed-variant);
+
+  --color-error: var(--error);
+  --color-on-error: var(--on-error);
+  --color-error-container: var(--error-container);
+  --color-on-error-container: var(--on-error-container);
+
+  --color-primary-fixed: var(--primary-fixed);
+  --color-primary-fixed-dim: var(--primary-fixed-dim);
+  --color-on-primary-fixed: var(--on-primary-fixed);
+  --color-on-primary-fixed-variant: var(--on-primary-fixed-variant);
+
+  --color-background: var(--background);
+  --color-on-background: var(--on-background);
+
+  --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: var(--font-dm-sans), "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-space-2xl: 4rem;
+  --spacing-space-3xl: 6rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-desktop: 2.5rem;
+  --spacing-margin: 1.25rem;
+  --spacing-margin-tablet: 2.5rem;
+  --spacing-margin-desktop: 4rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6.5rem;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #fbf9f4;
+    color: #264653;
+  }
+}
+
+/* Material Symbols font helper */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Stitch Typography Utilities */
+.font-display-hero {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-size: clamp(38px, 5vw, 56px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.font-headline-lg {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-size: clamp(28px, 3.5vw, 40px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
+
+.font-headline-md {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-size: clamp(22px, 2.5vw, 28px);
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+.font-headline-sm {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 500;
+}
+
+.font-title-editorial {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.font-body-lg {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+.font-body-md {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+.font-body-sm {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+.font-label-caps {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.font-label-price {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.font-label-interactive {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+/* Hairline Seam Borders */
+.border-stitch {
+  border-color: #e1ddd5;
+}
+
+/* Refined Translucent Liquid Glass Capsules */
+.liquid-glass-nav {
+  background: rgba(247, 245, 240, 0.58);
+  backdrop-filter: blur(20px) saturate(165%);
+  -webkit-backdrop-filter: blur(20px) saturate(165%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 8px 32px rgba(38, 70, 83, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+
+.liquid-glass-nav-scrolled {
+  background: rgba(247, 245, 240, 0.78);
+  backdrop-filter: blur(24px) saturate(165%);
+  -webkit-backdrop-filter: blur(24px) saturate(165%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 12px 36px rgba(38, 70, 83, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85);
+}
+
+/* Browser Fallback for backdrop-filter */
+@supports not (backdrop-filter: blur(20px)) {
+  .liquid-glass-nav {
+    background: rgba(247, 245, 240, 0.94);
+    border-color: #e1ddd5;
+  }
+  .liquid-glass-nav-scrolled {
+    background: #fbf9f4;
+    border-color: #d6d0c5;
+  }
+}
+
+/* Luxury Glass Effects */
+.glass-header {
+  background-color: rgba(247, 245, 240, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Accessible focus ring */
+.focus-luxury {
+  outline: none;
+}
+.focus-luxury:focus-visible {
+  outline: 2px solid var(--color-brand-secondary, #2A9D8F);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

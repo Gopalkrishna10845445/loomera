@@ -1,0 +1,51 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "npm run test:pricing && tsx scripts/test_api_and_db.ts && tsx scripts/test_phase2_auth_cart_wishlist.ts && npm run test:assistant && npm run test:intelligence && npm run test:checkout && npm run test:admin && npm run test:recommendations && npm run test:production && npm run test:business && npm run test:growth && npm run test:bi",
+    "test:pricing": "tsx scripts/test_pricing_and_catalog.ts",
+    "test:auth": "tsx scripts/test_phase2_auth_cart_wishlist.ts",
+    "test:assistant": "tsx scripts/test_phase3a_ai_assistant.ts",
+    "test:intelligence": "tsx scripts/test_phase3b_product_intelligence.ts",
+    "test:checkout": "tsx scripts/test_phase4_checkout_orders.ts",
+    "test:admin": "tsx scripts/test_phase5_admin_inventory.ts",
+    "test:recommendations": "tsx scripts/test_phase6_ai_recommendations.ts",
+    "test:production": "tsx scripts/test_phase7_production_readiness.ts",
+    "test:business": "tsx scripts/test_phase8_business_ops.ts",
+    "test:growth": "tsx scripts/test_phase9_growth_and_commerce.ts",
+    "test:bi": "tsx scripts/test_phase10_business_intelligence.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx scripts/seed.ts",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@node-rs/argon2": "^2.2.2",
+    "drizzle-orm": "^0.45.4",
+    "lucide-react": "^1.55.0",
+    "motion": "^14.1.0",
+    "next": "^16.4.2",
+    "pg": "^8.23.1",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "dotenv": "^18.0.9",
+    "drizzle-kit": "^0.31.11",
+    "eslint": "^9",
+    "eslint-config-next": "^16.4.2",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  }
+}

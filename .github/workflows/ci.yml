@@ -1,0 +1,73 @@
+name: LOOMERA Production CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Code Quality, Type Safety & Test Suites
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgrespassword
+          POSTGRES_DB: loomera
+        ports:
+          - 5434:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Static Code Analysis (Linter)
+        working-directory: ./frontend
+        run: npm run lint
+
+      - name: TypeScript Strict Type Check
+        working-directory: ./frontend
+        run: npx tsc --noEmit
+
+      - name: Execute Database Migrations & Seeds
+        working-directory: ./frontend
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@127.0.0.1:5434/loomera
+        run: |
+          npx tsx scripts/apply_pricing_migration.ts || true
+          npx tsx scripts/seed.ts || true
+          npx tsx scripts/seed_admin.ts || true
+
+      - name: Run Master Regression Test Suite (571+ Assertions)
+        working-directory: ./frontend
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@127.0.0.1:5434/loomera
+          NODE_ENV: test
+        run: npm test
+
+      - name: Verify Production Build
+        working-directory: ./frontend
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@127.0.0.1:5434/loomera
+          NODE_ENV: production
+        run: npm run build

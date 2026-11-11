@@ -1,0 +1,955 @@
+<USER_REQUEST>
+# ROLE
+
+Act as a Principal Full-Stack Engineer, E-commerce Architect, Application Security Engineer, Database Architect, and QA Automation Engineer.
+
+You are working on my existing project:
+
+**LOOMERA — Premium Men's and Boys' Clothing E-Commerce Platform.**
+
+Your mission is to implement:
+
+**PHASE 2 — CUSTOMER AUTHENTICATION, SECURE SERVER SESSIONS, PERSISTENT CART & WISHLIST SYNCHRONIZATION.**
+
+This is an existing application with completed frontend, PostgreSQL integration, product APIs, centralized INR pricing, shipping calculations, and server-authoritative cart price validation.
+
+Do not rebuild the application.
+
+Inspect the actual codebase, understand its architecture, implement the required functionality, test it thoroughly, and produce a detailed completion report.
+
+---
+
+# 1. EXISTING PROJECT CONTEXT
+
+Technology stack (verify actual versions and configuration before making assumptions):
+
+* Next.js App Router
+* React
+* TypeScript
+* Tailwind CSS
+* PostgreSQL
+* Drizzle ORM
+* Node.js
+* Existing product APIs
+* Existing pricing engine
+* Existing cart drawer
+* Existing wishlist interactions
+
+Previously completed milestones:
+
+### Phase 1 — Database & Product APIs
+
+* PostgreSQL configured.
+* Drizzle ORM integrated.
+* Products, categories, variants, and product images stored in PostgreSQL.
+* Product search and filtering APIs implemented.
+* Frontend connected to real product data.
+
+### Pricing & Catalog Refinement
+
+* Centralized INR formatting.
+* Centralized pricing utilities.
+* Server-authoritative cart price validation.
+* Shipping threshold centralized at ₹2,999.
+* Hardcoded collection product IDs eliminated.
+* Database-driven collections implemented.
+* 114 automated tests reported passing.
+* TypeScript, ESLint, and production build reported passing.
+
+Important existing modules to inspect:
+
+* `src/db/schema.ts`
+* `src/db/index.ts`
+* `src/lib/products.ts`
+* `src/lib/currency.ts`
+* `src/lib/pricing.ts`
+* `/api/cart/validate`
+* Existing Cart Drawer
+* Existing Wishlist components
+* Existing Account pages
+* Existing Orders pages
+
+These paths are examples based on previous reports. Locate the actual files before making changes.
+
+Do not unnecessarily recreate existing functionality.
+
+---
+
+# 2. NON-NEGOTIABLE EXECUTION RULES
+
+1. Inspect the existing codebase before editing.
+2. Read the previous milestone reports.
+3. Preserve all completed functionality.
+4. Preserve the LOOMERA visual design.
+5. Do not introduce unnecessary dependencies.
+6. Do not store passwords in plaintext.
+7. Never expose database credentials or session secrets.
+8. Never trust client-submitted customer IDs.
+9. Never trust client-submitted prices.
+10. Never allow customers to access another customer's data.
+11. Never create fake successful login or registration responses.
+12. Never use localStorage as the authoritative authenticated cart database.
+13. Do not delete existing customer or product data.
+14. Do not reset the PostgreSQL database.
+15. Use safe, additive database migrations.
+16. Never claim tests passed unless they were actually executed.
+17. Do not implement checkout, payments, or order processing in this milestone.
+
+If destructive database changes are necessary, stop and request my permission.
+
+For ordinary safe implementation decisions, use engineering judgment and continue.
+
+---
+
+# 3. TASK ONE — AUTHENTICATION ARCHITECTURE
+
+Inspect the current authentication implementation.
+
+Determine whether any authentication library or session mechanism already exists.
+
+Do not introduce a second authentication system if a working one is already present.
+
+If authentication is not implemented, select an appropriate maintained solution compatible with the existing Next.js architecture.
+
+Evaluate Auth.js or a secure custom session implementation using established cryptographic libraries.
+
+Do not use deprecated or unmaintained authentication packages.
+
+### Required functionality
+
+Implement:
+
+1. Customer registration.
+2. Customer login.
+3. Customer logout.
+4. Session validation.
+5. Session expiration.
+6. Session renewal or rotation where appropriate.
+7. Authentication state persistence across page refreshes.
+8. Protected account routes.
+
+### Registration fields
+
+* Full name
+* Email address
+* Password
+* Password confirmation
+
+Requirements:
+
+* Validate email format.
+* Normalize email addresses.
+* Enforce unique email addresses.
+* Apply password strength requirements.
+* Validate password confirmation.
+* Prevent duplicate registration.
+* Provide useful validation messages.
+* Never expose whether a password is correct in error logs.
+
+### Login fields
+
+* Email address
+* Password
+
+Requirements:
+
+* Secure password verification.
+* Generic authentication error messages.
+* Login rate limiting.
+* Safe handling of repeated failed attempts.
+* Session creation after successful authentication.
+
+### Password security
+
+Use Argon2id or another appropriately configured, modern password-hashing algorithm.
+
+Never:
+
+* Store plaintext passwords.
+* Log passwords.
+* Return password hashes through APIs.
+* Store passwords in localStorage or sessionStorage.
+
+---
+
+# 4. TASK TWO — SECURE SERVER-SIDE SESSIONS
+
+Implement secure server-side session management.
+
+### Cookie requirements
+
+Use appropriately configured cookies:
+
+* HttpOnly: true
+* Secure: true in production
+* SameSite: Lax or stricter where compatible
+* Path: /
+* Appropriate expiration
+
+Do not expose session identifiers to frontend JavaScript.
+
+### Session management
+
+Implement:
+
+* Session creation.
+* Session validation.
+* Session expiration.
+* Session revocation.
+* Logout invalidation.
+* Session rotation after authentication where appropriate.
+
+Use cryptographically secure random session identifiers.
+
+Store only appropriately protected session identifiers or tokens in the database.
+
+Never trust an identity supplied through request parameters or browser state.
+
+The authenticated customer identity must be obtained from the verified server-side session.
+
+### Security considerations
+
+Protect against:
+
+* Session fixation.
+* Session hijacking.
+* Cross-site scripting exposure of session credentials.
+* CSRF attacks.
+* Brute-force login attempts.
+* Unauthorized session reuse.
+
+Use appropriate CSRF protection for state-changing endpoints, considering the application's cookie and request architecture.
+
+---
+
+# 5. TASK THREE — DATABASE SCHEMA
+
+Inspect the current Drizzle schema before adding tables.
+
+Reuse existing tables and relationships wherever possible.
+
+Implement the following data structures only where missing.
+
+### Users
+
+Suggested fields:
+
+* id
+* name
+* email
+* password_hash
+* email_verified_at
+* created_at
+* updated_at
+
+Requirements:
+
+* Unique normalized email.
+* Appropriate indexes.
+* Safe user identification.
+* No unnecessary sensitive information.
+
+### Sessions
+
+Suggested fields:
+
+* id
+* user_id
+* token_hash
+* expires_at
+* created_at
+* last_activity_at
+
+Requirements:
+
+* Foreign key to users.
+* Appropriate indexes.
+* Expiration support.
+* Revocation support.
+
+### Carts
+
+Suggested fields:
+
+* id
+* user_id
+* created_at
+* updated_at
+
+Requirements:
+
+* One active cart per customer unless the existing architecture requires otherwise.
+* Unique ownership.
+* Proper database constraints.
+
+### Cart Items
+
+Suggested fields:
+
+* id
+* cart_id
+* product_id
+* variant_id
+* quantity
+* created_at
+* updated_at
+
+Requirements:
+
+* Foreign keys.
+* Quantity validation.
+* Duplicate variant handling.
+* Product and variant validation.
+
+Do not store client-submitted prices as authoritative values.
+
+Calculate prices using the existing server-side pricing engine.
+
+### Wishlists
+
+Suggested fields:
+
+* id
+* user_id
+* created_at
+* updated_at
+
+### Wishlist Items
+
+Suggested fields:
+
+* id
+* wishlist_id
+* product_id
+* created_at
+
+Requirements:
+
+* Prevent duplicate wishlist entries.
+* Enforce ownership.
+* Support adding and removing products.
+
+### Migration safety
+
+* Create additive migrations.
+* Review generated SQL before execution.
+* Preserve existing data.
+* Back up the local development database before migrations.
+* Verify migration results.
+* Never reset the database to make migrations pass.
+
+---
+
+# 6. TASK FOUR — AUTHENTICATION API
+
+Implement secure API endpoints according to the existing project conventions.
+
+Suggested endpoints:
+
+### Registration
+
+`POST /api/auth/register`
+
+Responsibilities:
+
+* Validate input.
+* Normalize email.
+* Hash password.
+* Create customer record.
+* Handle duplicate email.
+* Return safe customer information.
+
+### Login
+
+`POST /api/auth/login`
+
+Responsibilities:
+
+* Validate credentials.
+* Apply rate limiting.
+* Verify password hash.
+* Create secure session.
+* Set session cookie.
+* Return safe customer information.
+
+### Logout
+
+`POST /api/auth/logout`
+
+Responsibilities:
+
+* Revoke current session.
+* Clear session cookie.
+* Return a safe response.
+
+### Current Customer
+
+`GET /api/auth/me`
+
+Responsibilities:
+
+* Validate session.
+* Return authenticated customer information.
+* Return unauthenticated status when no valid session exists.
+
+### Session Management
+
+Implement additional endpoints only where necessary.
+
+Do not expose internal session tokens.
+
+All API responses must have consistent structures and appropriate HTTP status codes.
+
+---
+
+# 7. TASK FIVE — PERSISTENT SHOPPING CART
+
+This is one of the most important parts of the milestone.
+
+The current LOOMERA shopping cart must support both anonymous and authenticated customers.
+
+### Anonymous customer behavior
+
+For visitors who are not logged in:
+
+* Allow adding products to cart.
+* Allow removing products.
+* Allow changing quantities.
+* Persist the temporary cart using the existing anonymous-cart mechanism.
+* Preserve existing Cart Drawer behavior.
+
+Use a secure, validated anonymous cart identifier or the existing implementation.
+
+Do not treat anonymous browser data as trusted pricing information.
+
+### Authenticated customer behavior
+
+For logged-in customers:
+
+* Retrieve their cart from PostgreSQL.
+* Add products to their database cart.
+* Remove products.
+* Update quantities.
+* Persist changes.
+* Restore the cart after refresh.
+* Restore the cart after logging in from another device.
+
+### Required API functionality
+
+Implement appropriate endpoints for:
+
+* Retrieving cart.
+* Adding an item.
+* Updating quantity.
+* Removing an item.
+* Clearing cart.
+
+All operations must verify ownership through the authenticated session.
+
+### Server-authoritative pricing
+
+Integrate with the existing pricing utilities.
+
+For every cart response:
+
+1. Retrieve current product information from PostgreSQL.
+2. Validate product availability.
+3. Validate selected variant.
+4. Validate quantity.
+5. Retrieve authoritative prices.
+6. Calculate subtotal.
+7. Calculate applicable shipping status.
+8. Return formatted INR values where appropriate.
+
+Do not accept client-submitted totals or prices as authoritative.
+
+Do not break the existing `/api/cart/validate` implementation.
+
+---
+
+# 8. TASK SIX — ANONYMOUS CART MERGE AFTER LOGIN
+
+Implement a safe cart synchronization mechanism.
+
+### Expected customer experience
+
+Example:
+
+A visitor adds:
+
+* Linen Shirt — Size M — Quantity 2
+* Cotton Trousers — Size L — Quantity 1
+
+The visitor then logs in.
+
+The anonymous cart should be merged into the authenticated customer's PostgreSQL cart.
+
+### Merge rules
+
+1. Read anonymous cart data.
+2. Validate product IDs.
+3. Validate variant IDs.
+4. Validate product availability.
+5. Validate quantities.
+6. Reconcile duplicate product variants.
+7. Merge quantities according to the established cart policy.
+8. Revalidate maximum permitted quantities and stock.
+9. Recalculate prices using database values.
+10. Commit the operation transactionally.
+
+### Idempotency
+
+The merge must not duplicate items when:
+
+* The login request is retried.
+* The browser refreshes.
+* Network requests are repeated.
+* The merge endpoint is called more than once.
+
+Use an appropriate transaction and idempotency strategy.
+
+### Failure handling
+
+If merging fails:
+
+* Do not silently discard the anonymous cart.
+* Do not corrupt the authenticated cart.
+* Return a meaningful error.
+* Preserve recoverable anonymous cart data.
+* Allow a safe retry.
+
+Test partial failures and concurrent requests.
+
+---
+
+# 9. TASK SEVEN — PERSISTENT WISHLIST
+
+Implement customer-specific wishlist functionality.
+
+Required operations:
+
+* Retrieve wishlist.
+* Add product.
+* Remove product.
+* Check whether a product is wishlisted.
+* Prevent duplicate entries.
+* Persist wishlist across sessions.
+
+### Anonymous behavior
+
+Preserve the existing anonymous wishlist experience.
+
+When an anonymous customer logs in:
+
+* Merge anonymous wishlist items into the authenticated wishlist.
+* Validate product IDs.
+* Prevent duplicates.
+* Preserve existing authenticated wishlist entries.
+* Make the operation safe to retry.
+
+Do not delete anonymous wishlist data before successful synchronization.
+
+---
+
+# 10. TASK EIGHT — FRONTEND AUTHENTICATION EXPERIENCE
+
+Integrate authentication into the existing LOOMERA interface.
+
+Required screens:
+
+### Registration
+
+Create a premium registration experience with:
+
+* Full name
+* Email
+* Password
+* Confirm password
+* Create account button
+* Login navigation
+
+### Login
+
+Create a login screen with:
+
+* Email
+* Password
+* Login button
+* Registration navigation
+* Forgot password placeholder only if actual reset functionality is not implemented
+
+Do not create fake password-reset success behavior.
+
+### Header integration
+
+Update the existing navigation:
+
+Anonymous customer:
+
+* Login
+* Create Account
+
+Authenticated customer:
+
+* Account
+* Wishlist
+* Logout
+
+Display the customer's name where appropriate.
+
+### Cart integration
+
+Preserve the existing:
+
+* Cart Drawer.
+* Product cards.
+* Quick Add.
+* Quantity controls.
+* Toast notifications.
+* Shipping progress indicator.
+
+After login, synchronize the cart without disrupting the shopping experience.
+
+### Design requirements
+
+Preserve the existing LOOMERA design system:
+
+* Premium editorial fashion aesthetic.
+* Playfair Display typography.
+* DM Sans typography.
+* Existing Tailwind design tokens.
+* Liquid Glass navbar.
+* Existing product cards.
+* Existing animations.
+* Existing responsive layouts.
+* Existing color palette.
+
+Do not redesign the website.
+
+---
+
+# 11. TASK NINE — ACCOUNT AND ORDERS ROUTE PROTECTION
+
+Protect:
+
+* `/account`
+* `/orders`
+
+Requirements:
+
+* Unauthenticated customers must not access private account information.
+* Redirect unauthenticated customers to login.
+* Preserve the requested destination for post-login navigation.
+* Authenticated customers must only see their own data.
+* Validate authorization on the server.
+* Do not rely only on frontend route protection.
+
+Do not invent order history.
+
+If real order processing has not been implemented, retain an honest empty-state page.
+
+---
+
+# 12. TASK TEN — CUSTOMER DATA ISOLATION AND SECURITY AUDIT
+
+This section is mandatory.
+
+Test whether one customer can access another customer's information.
+
+Attempt to:
+
+* Retrieve another customer's cart.
+* Modify another customer's cart.
+* Delete another customer's cart items.
+* Retrieve another customer's wishlist.
+* Modify another customer's wishlist.
+* Access another customer's account.
+* Reuse expired sessions.
+* Use revoked sessions.
+* Manipulate product prices.
+* Submit invalid product IDs.
+* Submit invalid variant IDs.
+* Submit negative or excessive quantities.
+
+Expected result:
+
+All unauthorized operations must be rejected.
+
+Implement:
+
+* Server-side ownership validation.
+* Input validation.
+* Rate limiting.
+* Safe error handling.
+* Appropriate CSRF protections.
+* Secure session management.
+* Database constraints.
+* Transactional operations.
+
+Never expose passwords, session identifiers, database credentials, or sensitive internal errors.
+
+---
+
+# 13. TASK ELEVEN — AUTOMATED TESTING
+
+Create or update focused tests for all new functionality.
+
+### Authentication tests
+
+* Successful registration.
+* Duplicate registration.
+* Invalid email.
+* Weak password.
+* Successful login.
+* Invalid password.
+* Unknown account.
+* Logout.
+* Session expiration.
+* Revoked session.
+
+### Session security tests
+
+* HttpOnly cookie.
+* Secure production cookie.
+* SameSite policy.
+* Session rotation.
+* Session invalidation.
+* CSRF protection.
+
+### Cart tests
+
+* Add product.
+* Remove product.
+* Update quantity.
+* Retrieve cart.
+* Cart persistence.
+* Product unavailable.
+* Invalid variant.
+* Price tampering.
+* Quantity validation.
+
+### Cart merge tests
+
+* Anonymous cart to authenticated cart.
+* Duplicate product variant.
+* Invalid product.
+* Out-of-stock product.
+* Repeated merge.
+* Failed transaction.
+* Concurrent merge requests.
+
+### Wishlist tests
+
+* Add product.
+* Remove product.
+* Prevent duplicates.
+* Persist across login.
+* Merge anonymous wishlist.
+* Reject unauthorized access.
+
+### Customer isolation tests
+
+Create at least two test customers.
+
+Verify that customer A cannot retrieve or modify customer B's cart, wishlist, sessions, or account information.
+
+### Regression tests
+
+Verify existing functionality:
+
+* Homepage.
+* Product search.
+* Collection pages.
+* Product details.
+* INR pricing.
+* Shipping calculations.
+* Quick Add.
+* Cart Drawer.
+* Wishlist.
+* Responsive layouts.
+
+Execute the actual available scripts.
+
+At minimum, where supported:
+
+* `npm run lint`
+* `npx tsc --noEmit`
+* `npm test`
+* `npm run build`
+
+Do not suppress existing errors to make the test suite pass.
+
+Clearly identify pre-existing issues and newly introduced issues.
+
+---
+
+# 14. TASK TWELVE — DOCUMENTATION
+
+Update:
+
+`BACKEND-READINESS-REPORT.md`
+
+Create:
+
+`LOOMERA-AUTH-CART-IMPLEMENTATION-REPORT.md`
+
+Include:
+
+1. Initial architecture.
+2. Existing authentication findings.
+3. Authentication approach selected.
+4. Database schema changes.
+5. Migration details.
+6. Password security.
+7. Session implementation.
+8. API endpoints.
+9. Cart synchronization.
+10. Wishlist synchronization.
+11. Customer data isolation.
+12. Security audit results.
+13. Automated test results.
+14. TypeScript results.
+15. ESLint results.
+16. Production build results.
+17. Remaining limitations.
+18. Recommended next milestone.
+
+Use accurate status labels:
+
+* PASS
+* PARTIAL
+* FAIL
+* NOT IMPLEMENTED
+* BLOCKED
+
+Do not claim production readiness merely because development tests pass.
+
+---
+
+# 15. STRICT SCOPE BOUNDARIES
+
+Do not implement the following in this milestone:
+
+* Payment gateways.
+* Checkout processing.
+* Order creation.
+* Refund processing.
+* Shipping provider integrations.
+* Admin dashboard.
+* Inventory management overhaul.
+* AI shopping assistant.
+* Advanced recommendation engine.
+
+These will be separate milestones.
+
+However, design the authentication and customer data architecture so that these future capabilities can integrate cleanly.
+
+---
+
+# 16. EXECUTION WORKFLOW
+
+Follow this exact sequence:
+
+### STEP 1 — INSPECT
+
+Inspect project structure, dependencies, database schema, existing cart, wishlist, account pages, APIs, and tests.
+
+### STEP 2 — AUDIT
+
+Identify existing functionality and missing authentication capabilities.
+
+### STEP 3 — ARCHITECTURE
+
+Select the safest compatible authentication and session architecture.
+
+Document the proposed schema and API changes.
+
+### STEP 4 — BACKUP
+
+Verify a recoverable database backup exists before migrations.
+
+Do not modify the database destructively.
+
+### STEP 5 — DATABASE
+
+Implement safe additive migrations and verify them.
+
+### STEP 6 — AUTHENTICATION
+
+Implement registration, login, logout, sessions, and customer identity.
+
+### STEP 7 — CART
+
+Implement persistent customer carts and safe anonymous-cart synchronization.
+
+### STEP 8 — WISHLIST
+
+Implement persistent wishlists and anonymous-wishlist synchronization.
+
+### STEP 9 — FRONTEND
+
+Integrate authentication into the existing LOOMERA design.
+
+### STEP 10 — SECURITY
+
+Perform customer data isolation and authentication security tests.
+
+### STEP 11 — VALIDATION
+
+Execute automated tests, TypeScript checks, lint, and production build.
+
+### STEP 12 — DOCUMENTATION
+
+Update the project reports with actual evidence.
+
+### STEP 13 — FINAL REPORT
+
+Summarize completed functionality, remaining limitations, and recommended next milestone.
+
+Do not stop after creating an audit or implementation plan. Complete the safe, approved implementation and verification.
+
+---
+
+# 17. FINAL ACCEPTANCE CRITERIA
+
+Phase 2 is complete only when:
+
+* Customers can register.
+* Customers can log in.
+* Customers can log out.
+* Passwords are securely hashed.
+* Server-side sessions work.
+* Authentication survives page refreshes.
+* Private account routes are protected.
+* Authenticated carts persist in PostgreSQL.
+* Anonymous carts merge safely after login.
+* Cart merging is idempotent.
+* Server-side pricing remains authoritative.
+* Wishlists persist in PostgreSQL.
+* Anonymous wishlists merge safely.
+* Customer data is isolated.
+* Session revocation works.
+* Relevant security tests pass.
+* Existing storefront functionality remains intact.
+* TypeScript and lint checks pass.
+* Production build succeeds.
+* Documentation is updated.
+
+If any requirement cannot be completed, report it accurately.
+
+# FINAL EXPECTATION
+
+Build a secure customer account foundation for LOOMERA.
+
+The application must behave like a real e-commerce platform, not a frontend demonstration.
+
+Preserve all completed work from previous milestones.
+
+Prioritize security, data integrity, transactional consistency, and customer experience.
+
+**INSPECT → AUDIT → ARCHITECT → BACKUP → IMPLEMENT → INTEGRATE → SECURE → TEST → VERIFY → DOCUMENT → REPORT.**
+
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-11-03T14:48:43+05:30.
+</ADDITIONAL_METADATA>

@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LOOMERA — Next.js Application Core (`frontend/`)
 
-## Getting Started
+This directory houses the complete **Next.js 16 (App Router)** production web application for LOOMERA.
 
-First, run the development server:
+---
+
+## Quick Reference for Developers
+
+### Prerequisites
+- **Node.js**: `v20.x` or higher
+- **Package Manager**: `npm`
+- **PostgreSQL**: `v17` running locally on port 5434 or configured via Supabase
+
+### Local Development Commands
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server with Turbopack (http://localhost:3000)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Run strict TypeScript type check (zero errors required)
+npx tsc --noEmit
+
+# Run ESLint static analysis
+npm run lint
+
+# Run master automated regression test suite (12 suites, 825 assertions)
+npm test
+
+# Run Next.js production build
+npm run build
+
+# Start production server
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Database & Migration Tooling
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Seed local database with luxury garment catalog & variants
+npm run db:seed
 
-## Learn More
+# Generate Drizzle migrations from schema changes
+npm run db:generate
 
-To learn more about Next.js, take a look at the following resources:
+# Apply Drizzle migrations to database
+npm run db:migrate
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Launch Drizzle Studio graphical browser
+npm run db:studio
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Run database schema inspection script
+npx tsx scripts/inspect_db.ts
 
-## Deploy on Vercel
+# Deploy schema and seeds to remote Supabase cluster
+powershell -ExecutionPolicy Bypass -File scripts/deploy_to_supabase.ps1
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Directory Layout
+
+```text
+frontend/
+├── public/                 # Optimized static images, logos, and web fonts
+├── scripts/                # 12 Automated test suites, seeds, and migration scripts
+├── src/
+│   ├── app/                # Next.js App Router (75 routes, layouts, and API handlers)
+│   ├── components/         # React 19 UI components (Storefront, Admin, Cart, Assistant)
+│   ├── context/            # React state contexts (AuthContext, CartContext)
+│   ├── data/               # Static fallback data & mock definitions
+│   ├── db/                 # PostgreSQL client connection & Drizzle ORM schema (48 tables)
+│   ├── lib/                # Business logic, services (Pricing, Auth, Orders, AI BI)
+│   ├── types/              # Global TypeScript interfaces
+│   └── middleware.ts       # Route security proxy & session validation
+├── .env.example            # Environment variables template
+├── next.config.ts          # Next.js build and image optimization settings
+├── package.json            # Project dependencies and script declarations
+├── postcss.config.mjs      # PostCSS configuration for Tailwind CSS v4
+└── tsconfig.json           # Strict TypeScript configuration
+```
+
+For complete system architecture, database schema, and deployment runbooks, see the central **[Documentation Directory](../docs/README.md)**.

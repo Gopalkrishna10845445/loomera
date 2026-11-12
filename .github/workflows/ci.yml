@@ -58,7 +58,7 @@ jobs:
           npx tsx scripts/seed.ts || true
           npx tsx scripts/seed_admin.ts || true
 
-      - name: Run Master Regression Test Suite (571+ Assertions)
+      - name: Run Master Regression Test Suite (825 Assertions)
         working-directory: ./frontend
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@127.0.0.1:5434/loomera

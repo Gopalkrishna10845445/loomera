@@ -66,32 +66,33 @@ Across Phases 1 through 10, the platform has evolved from a bespoke storefront i
 ## 4. PROJECT ARCHITECTURE
 
 ```text
-c:\Users\gopal\Downloads\lommera\
-├── .github/
-│   └── workflows/
-│       └── ci.yml                     # GitHub Actions CI workflow (Node 20, Postgres, Tests)
+loomera/
+├── .agents/                           # Supabase Agent Skills & Database Best Practices
+├── .github/workflows/ci.yml           # GitHub Actions CI workflow (Node 20, Postgres 17, 825 Tests)
+├── docs/                              # Centralized Engineering & Architecture Documentation
+│   ├── README.md                      # Documentation Hub & Navigation Index
+│   ├── ARCHITECTURE.md                # 5-Tier System Architecture & Design Specification
+│   ├── DATABASE.md                    # 48-Table PostgreSQL Schema, Drizzle ORM & Pooling
+│   ├── DEPLOYMENT.md                  # Vercel & Supabase Production Deployment Runbook
+│   ├── ENVIRONMENT.md                 # Environment Variables Matrix & Secret Boundaries
+│   ├── API.md                         # Authoritative REST API Specification (75 Endpoints)
+│   └── phases/                        # Archived Phase 1–10 Engineering & Audit Reports
 ├── frontend/                          # Next.js 16 Full-Stack Application
+│   ├── public/                        # Static assets, logos & photography
 │   ├── src/
 │   │   ├── app/                       # Next.js App Router (75 Routes)
 │   │   │   ├── (storefront)/          # Public catalog, collections, cart, checkout
 │   │   │   ├── admin/                 # Administration console & /admin/intelligence
 │   │   │   └── api/                   # Serverless REST API Route Handlers
-│   │   ├── components/                # Modular React UI components (luxury design system)
+│   │   ├── components/                # Modular React 19 UI components
 │   │   ├── db/                        # Drizzle ORM schema (48 tables) & connection pool
-│   │   └── lib/                       # Core domain engines
-│   │       ├── ai/                    # AI concierge and orchestrator
-│   │       ├── auth/                  # RBAC, password hashing, session management
-│   │       ├── checkout/              # Pricing engine, order FSM, checkout validation
-│   │       ├── intelligence/          # 11 Phase 10 BI & predictive analytics modules
-│   │       ├── loyalty/               # RFM segmentation and loyalty points
-│   │       └── notifications/         # Email templates and dispatch abstractions
-│   ├── scripts/                       # 12 Automated test suites and seed scripts
-│   ├── package.json                   # Application dependencies and execution scripts
+│   │   └── lib/                       # Core domain engines & Phase 10 BI modules
+│   ├── scripts/                       # 12 Automated test suites, seeds & migration scripts
+│   ├── package.json                   # Dependencies & build scripts
 │   ├── package-lock.json              # Authoritative lockfile
-│   ├── next.config.ts                 # CSP headers, image optimization, and Turbopack
-│   ├── drizzle.config.ts              # Drizzle ORM migration configuration
-│   └── tsconfig.json                  # Strict TypeScript configuration
-├── LOOMERA-PHASE-*.md                 # Comprehensive Phase 1–10 engineering reports
+│   └── next.config.ts                 # Next.js configuration & CSP headers
+├── scripts/                           # Visual Regression & Browser QA Automation (Python/CDP)
+│   └── README.md                      # Playwright/CDP scripts documentation
 ├── .gitignore                         # Strict production gitignore
 └── README.md                          # Repository documentation
 ```

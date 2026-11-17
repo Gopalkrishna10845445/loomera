@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CartProvider } from "@/context/CartContext";
 import CollectionClient from "@/components/collections/CollectionClient";
 import { COLLECTIONS_CONFIG } from "@/data/collectionsData";
 
@@ -68,12 +67,10 @@ export default async function CollectionPage({ params }: CollectionPageProps) {
   }
 
   return (
-    <CartProvider>
-      <CollectionClient
-        categorySlug={categorySlug}
-        initialProducts={initialProducts.length > 0 ? initialProducts : undefined}
-      />
-    </CartProvider>
+    <CollectionClient
+      categorySlug={categorySlug}
+      initialProducts={initialProducts.length > 0 ? initialProducts : undefined}
+    />
   );
 }
 

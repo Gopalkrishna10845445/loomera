@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { CartProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
@@ -173,11 +172,10 @@ export default function OrderDetailClient({
   };
 
   return (
-    <CartProvider>
-      <div className="flex flex-col min-h-screen bg-surface">
-        <Header />
+    <div className="flex flex-col min-h-screen bg-white">
+      <Header />
 
-        <main className="w-full pt-36 pb-space-3xl">
+        <main className="w-full py-8 sm:py-12">
           <div className="max-w-[1240px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 font-label-caps text-[10px] uppercase text-[#474741] mb-6">
@@ -787,6 +785,5 @@ export default function OrderDetailClient({
         <ToastNotification />
         <AiAssistantWidget />
       </div>
-    </CartProvider>
   );
 }

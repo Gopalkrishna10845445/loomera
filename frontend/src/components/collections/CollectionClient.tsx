@@ -289,7 +289,7 @@ export default function CollectionClient({
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#faf8f5]">
+    <div className="flex flex-col min-h-screen bg-white">
       <Header />
 
       <main className="w-full">

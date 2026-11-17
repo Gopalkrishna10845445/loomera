@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSessionTokenFromCookies } from "@/lib/auth/cookies";
 import { validateSession } from "@/lib/auth/session";
-import { CartProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
@@ -21,16 +20,14 @@ export default async function CheckoutPage() {
   }
 
   return (
-    <CartProvider>
-      <div className="flex flex-col min-h-screen bg-surface">
-        <Header />
-        <CheckoutClient user={sessionData.user} />
-        <Footer />
-        <CartDrawer />
-        <SearchModal />
-        <SizeGuideModal />
-        <ToastNotification />
-      </div>
-    </CartProvider>
+    <div className="flex flex-col min-h-screen bg-white">
+      <Header />
+      <CheckoutClient user={sessionData.user} />
+      <Footer />
+      <CartDrawer />
+      <SearchModal />
+      <SizeGuideModal />
+      <ToastNotification />
+    </div>
   );
 }

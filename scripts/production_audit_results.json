@@ -1,0 +1,273 @@
+{
+  "phase1_routes": [
+    {
+      "name": "Homepage",
+      "url": "https://loomera-roan.vercel.app/",
+      "status": 200,
+      "elapsed_ms": 818,
+      "is_redirected": false,
+      "final_url": "https://loomera-roan.vercel.app/",
+      "title": "LOOMERA \u2014 Luxury Menswear & Young Gentleman's Tailoring",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Men's Collection",
+      "url": "https://loomera-roan.vercel.app/collections/men",
+      "status": 200,
+      "elapsed_ms": 1362,
+      "is_redirected": false,
+      "final_url": "https://loomera-roan.vercel.app/collections/men",
+      "title": "Men's Collection \u2014 Refined Essentials & Linen Wardrobe | LOOMERA",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Boys' Collection",
+      "url": "https://loomera-roan.vercel.app/collections/boys",
+      "status": 200,
+      "elapsed_ms": 1086,
+      "is_redirected": false,
+      "final_url": "https://loomera-roan.vercel.app/collections/boys",
+      "title": "Boys' Collection \u2014 Natural Linen & Tailoring for Growing Explorers | LOOMERA",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Product Detail",
+      "url": "https://loomera-roan.vercel.app/products/classic-linen-shirt",
+      "status": 200,
+      "elapsed_ms": 959,
+      "is_redirected": false,
+      "final_url": "https://loomera-roan.vercel.app/products/classic-linen-shirt",
+      "title": "Classic Linen Shirt | LOOMERA Artisanal Atelier",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Linen Care Guide",
+      "url": "https://loomera-roan.vercel.app/guides/linen-care",
+      "status": 200,
+      "elapsed_ms": 595,
+      "is_redirected": false,
+      "final_url": "https://loomera-roan.vercel.app/guides/linen-care",
+      "title": "The Connoisseur's Guide to Pure Linen & Heritage Silk Care | LOOMERA",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Login Page",
+      "url": "https://loomera-roan.vercel.app/login",
+      "status": 200,
+      "elapsed_ms": 541,
+      "is_redirected": false,
+      "final_url": "https://loomera-roan.vercel.app/login",
+      "title": "LOOMERA \u2014 Luxury Menswear & Young Gentleman's Tailoring",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Registration Page",
+      "url": "https://loomera-roan.vercel.app/register",
+      "status": 200,
+      "elapsed_ms": 934,
+      "is_redirected": false,
+      "final_url": "https://loomera-roan.vercel.app/register",
+      "title": "LOOMERA \u2014 Luxury Menswear & Young Gentleman's Tailoring",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Checkout Page",
+      "url": "https://loomera-roan.vercel.app/checkout",
+      "status": 200,
+      "elapsed_ms": 1312,
+      "is_redirected": true,
+      "final_url": "https://loomera-roan.vercel.app/login?redirect=/checkout",
+      "title": "LOOMERA \u2014 Luxury Menswear & Young Gentleman's Tailoring",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Patron Account",
+      "url": "https://loomera-roan.vercel.app/account",
+      "status": 200,
+      "elapsed_ms": 1050,
+      "is_redirected": true,
+      "final_url": "https://loomera-roan.vercel.app/login?redirect=%2Faccount",
+      "title": "LOOMERA \u2014 Luxury Menswear & Young Gentleman's Tailoring",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Orders Page",
+      "url": "https://loomera-roan.vercel.app/orders",
+      "status": 200,
+      "elapsed_ms": 1117,
+      "is_redirected": true,
+      "final_url": "https://loomera-roan.vercel.app/login?redirect=%2Forders",
+      "title": "LOOMERA \u2014 Luxury Menswear & Young Gentleman's Tailoring",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Admin Dashboard",
+      "url": "https://loomera-roan.vercel.app/admin",
+      "status": 200,
+      "elapsed_ms": 260,
+      "is_redirected": true,
+      "final_url": "https://loomera-roan.vercel.app/login?redirect=%2Fadmin",
+      "title": "LOOMERA \u2014 Luxury Menswear & Young Gentleman's Tailoring",
+      "is_blank": false,
+      "passed": true
+    },
+    {
+      "name": "Admin Intelligence",
+      "url": "https://loomera-roan.vercel.app/admin/intelligence",
+      "status": 200,
+      "elapsed_ms": 219,
+      "is_redirected": true,
+      "final_url": "https://loomera-roan.vercel.app/login?redirect=%2Fadmin%2Fintelligence",
+      "title": "LOOMERA \u2014 Luxury Menswear & Young Gentleman's Tailoring",
+      "is_blank": false,
+      "passed": true
+    }
+  ],
+  "phase2_flickering": {
+    "periodic_mutations": 0,
+    "critical_console_errors": 1,
+    "hydration_warnings": 0,
+    "console_details": [
+      "Failed to load resource: the server responded with a status of 404 ()"
+    ],
+    "passed": false
+  },
+  "phase3_cart": {
+    "badge_empty": "Shopping Cart with 0 items",
+    "stored_cart": "[{\"id\":\"classic-linen-shirt-Cream-S\",\"productId\":\"classic-li",
+    "badge_after_nav": "Shopping Cart with 1 items",
+    "badge_collections": "Shopping Cart with 1 items",
+    "badge_refreshed": "Shopping Cart with 1 items",
+    "passed": true
+  },
+  "phase4_apis": [
+    {
+      "name": "Catalog API",
+      "url": "https://loomera-roan.vercel.app/api/products",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 520,
+      "passed": false
+    },
+    {
+      "name": "Single Product API",
+      "url": "https://loomera-roan.vercel.app/api/products/classic-linen-shirt",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 478,
+      "passed": false
+    },
+    {
+      "name": "Guest Auth Session API",
+      "url": "https://loomera-roan.vercel.app/api/auth/me",
+      "method": "GET",
+      "status": 401,
+      "elapsed_ms": 472,
+      "passed": true
+    },
+    {
+      "name": "Healthcheck API",
+      "url": "https://loomera-roan.vercel.app/api/health",
+      "method": "GET",
+      "status": 503,
+      "elapsed_ms": 474,
+      "passed": false
+    },
+    {
+      "name": "AI Assistant Chat API",
+      "url": "https://loomera-roan.vercel.app/api/assistant/chat",
+      "method": "POST",
+      "status": 500,
+      "elapsed_ms": 500,
+      "passed": false
+    },
+    {
+      "name": "Protected Admin Products API",
+      "url": "https://loomera-roan.vercel.app/api/admin/products",
+      "method": "GET",
+      "status": 401,
+      "elapsed_ms": 502,
+      "passed": true
+    },
+    {
+      "name": "Protected Admin Analytics API",
+      "url": "https://loomera-roan.vercel.app/api/admin/analytics",
+      "method": "GET",
+      "status": 401,
+      "elapsed_ms": 466,
+      "passed": true
+    },
+    {
+      "name": "Protected Admin Intelligence API",
+      "url": "https://loomera-roan.vercel.app/api/admin/intelligence/overview",
+      "method": "GET",
+      "status": 401,
+      "elapsed_ms": 1318,
+      "passed": true
+    }
+  ],
+  "phase5_health": {},
+  "phase6_responsive": [
+    {
+      "viewport": "Desktop (1920x1080)",
+      "width": 1920,
+      "height": 1080,
+      "has_horizontal_overflow": false,
+      "menu_btn_visible": false,
+      "passed": true
+    },
+    {
+      "viewport": "Laptop (1440x900)",
+      "width": 1440,
+      "height": 900,
+      "has_horizontal_overflow": false,
+      "menu_btn_visible": false,
+      "passed": true
+    },
+    {
+      "viewport": "Tablet (768x1024)",
+      "width": 768,
+      "height": 1024,
+      "has_horizontal_overflow": false,
+      "menu_btn_visible": true,
+      "passed": true
+    },
+    {
+      "viewport": "Mobile (390x844)",
+      "width": 390,
+      "height": 844,
+      "has_horizontal_overflow": false,
+      "menu_btn_visible": true,
+      "passed": true
+    }
+  ],
+  "phase7_performance": {
+    "dns_time": 0,
+    "tls_time": 1502,
+    "ttfb": 680,
+    "transfer_size": 300,
+    "dom_content_loaded": 12291,
+    "load_complete": 12852,
+    "fcp": 12328
+  },
+  "phase8_security": {
+    "hsts": false,
+    "csp": true,
+    "x_content_type": true,
+    "x_frame": true,
+    "referrer": true,
+    "leak_postgres": false,
+    "leak_db_url": false,
+    "passed": false
+  }
+}

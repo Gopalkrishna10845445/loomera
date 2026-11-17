@@ -153,24 +153,24 @@ export default function AiAssistantWidget() {
         <motion.button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           aria-label="Open LOOMERA Atelier AI Assistant"
           data-testid="ai-assistant-trigger"
-          className="relative flex items-center gap-2.5 px-4 py-3 bg-[#264653] text-[#FAF8F5] rounded-full shadow-xl hover:shadow-2xl border border-[#2A9D8F]/40 hover:border-[#2A9D8F] transition-all group"
+          className="relative flex items-center gap-2.5 px-4 py-3 bg-[#051A6E] text-white rounded-none shadow-lg hover:bg-[#041456] border border-[#051A6E] transition-all group"
         >
-          <div className="w-6 h-6 rounded-full bg-[#2A9D8F]/30 flex items-center justify-center text-[#2A9D8F] group-hover:scale-110 transition-transform">
-            <Sparkles className="w-3.5 h-3.5 text-[#F4ED4F]" />
+          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+            <Sparkles className="w-3.5 h-3.5" />
           </div>
           <div className="flex flex-col text-left">
-            <span className="font-serif text-xs font-semibold tracking-wide">
-              Atelier Concierge
+            <span className="font-sans text-xs font-bold tracking-wider uppercase">
+              Loomera AI
             </span>
-            <span className="font-sans text-[9px] uppercase tracking-widest text-[#2A9D8F] font-bold">
-              AI Shopping Advisor
+            <span className="font-sans text-[9px] uppercase tracking-widest text-white/70 font-semibold">
+              Shopping Consultant
             </span>
           </div>
-          <span className="w-2 h-2 rounded-full bg-[#2A9D8F] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-emerald-400" />
         </motion.button>
       </div>
 
@@ -178,27 +178,27 @@ export default function AiAssistantWidget() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.96 }}
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.96 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed bottom-6 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[440px] h-[640px] max-h-[88vh] bg-[#FAF8F5]/98 backdrop-blur-md rounded-2xl shadow-2xl border border-[#264653]/15 flex flex-col overflow-hidden text-[#264653]"
+            exit={{ opacity: 0, y: 20, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="fixed bottom-6 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[440px] h-[640px] max-h-[88vh] bg-white rounded-lg shadow-2xl border border-[#E5E7EB] flex flex-col overflow-hidden text-black"
             data-testid="ai-assistant-drawer"
           >
             {/* Header */}
-            <div className="p-3.5 bg-white border-b border-[#e8e4db] flex items-center justify-between shadow-2xs">
+            <div className="p-4 bg-[#051A6E] text-white flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-[#264653] flex items-center justify-center text-[#F4ED4F] shadow-xs">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
                   <Sparkles className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-serif text-sm font-semibold tracking-wide text-[#264653]">
-                    LOOMERA Concierge
+                  <h3 className="font-sans text-sm font-bold tracking-wider uppercase text-white">
+                    LOOMERA AI Concierge
                   </h3>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#2A9D8F]" />
-                    <p className="font-sans text-[10px] uppercase tracking-wider text-stone-500 font-medium">
-                      Artisan Wardrobe Advisor
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <p className="font-sans text-[10px] uppercase tracking-wider text-white/80 font-medium">
+                      Personal Wardrobe Advisor
                     </p>
                   </div>
                 </div>
@@ -210,7 +210,7 @@ export default function AiAssistantWidget() {
                   onClick={handleReset}
                   title="Reset conversation and filters"
                   aria-label="Reset conversation"
-                  className="p-1.5 rounded-lg text-stone-400 hover:text-[#264653] hover:bg-stone-100 transition-colors"
+                  className="p-1.5 rounded text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                 >
                   <RotateCcw className="w-4 h-4" />
                 </button>
@@ -219,7 +219,7 @@ export default function AiAssistantWidget() {
                   onClick={() => setIsOpen(false)}
                   title="Close Concierge"
                   aria-label="Close Concierge"
-                  className="p-1.5 rounded-lg text-stone-400 hover:text-[#264653] hover:bg-stone-100 transition-colors"
+                  className="p-1.5 rounded text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -228,33 +228,33 @@ export default function AiAssistantWidget() {
 
             {/* Active Filters Pill Bar (if filters are active) */}
             {hasActiveFilters && (
-              <div className="px-3.5 py-1.5 bg-[#FAF8F5] border-b border-[#e8e4db] flex items-center justify-between text-[11px] font-sans">
+              <div className="px-3.5 py-1.5 bg-neutral-50 border-b border-[#E5E7EB] flex items-center justify-between text-[11px] font-sans">
                 <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 no-scrollbar">
-                  <span className="text-stone-400 uppercase text-[9px] font-semibold tracking-wider">
+                  <span className="text-neutral-500 uppercase text-[9px] font-bold tracking-wider">
                     Filters:
                   </span>
                   {activeFilters.fabric && (
-                    <span className="px-2 py-0.5 rounded-full bg-[#264653]/10 text-[#264653] font-medium text-[10px]">
+                    <span className="px-2 py-0.5 rounded-full bg-[#051A6E]/10 text-[#051A6E] font-bold text-[10px]">
                       {activeFilters.fabric}
                     </span>
                   )}
                   {activeFilters.color && (
-                    <span className="px-2 py-0.5 rounded-full bg-[#264653]/10 text-[#264653] font-medium text-[10px]">
+                    <span className="px-2 py-0.5 rounded-full bg-[#051A6E]/10 text-[#051A6E] font-bold text-[10px]">
                       {activeFilters.color}
                     </span>
                   )}
                   {activeFilters.category && (
-                    <span className="px-2 py-0.5 rounded-full bg-[#264653]/10 text-[#264653] font-medium text-[10px]">
+                    <span className="px-2 py-0.5 rounded-full bg-[#051A6E]/10 text-[#051A6E] font-bold text-[10px]">
                       {activeFilters.category}
                     </span>
                   )}
                   {activeFilters.maxPrice && (
-                    <span className="px-2 py-0.5 rounded-full bg-[#264653]/10 text-[#264653] font-medium text-[10px]">
+                    <span className="px-2 py-0.5 rounded-full bg-[#051A6E]/10 text-[#051A6E] font-bold text-[10px]">
                       ≤ ₹{activeFilters.maxPrice.toLocaleString("en-IN")}
                     </span>
                   )}
                   {activeFilters.size && (
-                    <span className="px-2 py-0.5 rounded-full bg-[#264653]/10 text-[#264653] font-medium text-[10px]">
+                    <span className="px-2 py-0.5 rounded-full bg-[#051A6E]/10 text-[#051A6E] font-bold text-[10px]">
                       Size {activeFilters.size}
                     </span>
                   )}
@@ -262,7 +262,7 @@ export default function AiAssistantWidget() {
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="text-[10px] text-[#E76F51] hover:underline font-medium shrink-0 ml-2"
+                  className="text-[10px] text-[#D92D20] hover:underline font-bold uppercase shrink-0 ml-2"
                 >
                   Clear
                 </button>
@@ -270,7 +270,7 @@ export default function AiAssistantWidget() {
             )}
 
             {/* Chat Messages Body */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-[#F9FAFB]">
               {messages.map((msg) => (
                 <ChatMessage
                   key={msg.id}
@@ -283,7 +283,7 @@ export default function AiAssistantWidget() {
               {isLoading && <TypingIndicator />}
 
               {errorMsg && (
-                <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-800 text-xs font-sans">
+                <div className="p-3 rounded-none bg-red-50 border border-red-200 text-red-800 text-xs font-sans">
                   {errorMsg}
                 </div>
               )}
@@ -296,14 +296,14 @@ export default function AiAssistantWidget() {
               messages[messages.length - 1].suggestions &&
               messages[messages.length - 1].suggestions!.length > 0 &&
               !isLoading && (
-                <div className="px-3.5 py-1.5 border-t border-[#e8e4db] bg-stone-50/70 overflow-x-auto no-scrollbar">
+                <div className="px-3.5 py-2 border-t border-[#E5E7EB] bg-white overflow-x-auto no-scrollbar">
                   <div className="flex gap-1.5">
                     {messages[messages.length - 1].suggestions!.slice(0, 3).map((s) => (
                       <button
                         key={s}
                         type="button"
                         onClick={() => handleSendMessage(s)}
-                        className="text-[10px] font-sans font-medium px-2.5 py-1 rounded-full border border-stone-200 bg-white text-stone-700 hover:border-[#264653] hover:text-[#264653] transition-colors whitespace-nowrap shadow-2xs"
+                        className="text-[10px] font-sans font-bold px-3 py-1.5 rounded-full border border-[#E5E7EB] bg-white text-black hover:border-[#051A6E] hover:text-[#051A6E] transition-colors whitespace-nowrap"
                       >
                         {s}
                       </button>
@@ -318,7 +318,7 @@ export default function AiAssistantWidget() {
                 e.preventDefault();
                 handleSendMessage();
               }}
-              className="p-3 bg-white border-t border-[#e8e4db] flex items-center gap-2"
+              className="p-3 bg-white border-t border-[#E5E7EB] flex items-center gap-2"
             >
               <input
                 ref={inputRef}
@@ -328,16 +328,16 @@ export default function AiAssistantWidget() {
                 placeholder="Ask about fabrics, sizes, or styling..."
                 disabled={isLoading}
                 maxLength={500}
-                className="flex-1 bg-[#FAF8F5] border border-stone-200 rounded-xl px-3.5 py-2 text-xs font-sans text-[#264653] placeholder:text-stone-400 focus:outline-none focus:border-[#2A9D8F] focus:ring-1 focus:ring-[#2A9D8F] transition-all disabled:opacity-50"
+                className="flex-1 bg-neutral-50 border border-[#E5E7EB] rounded-full px-4 py-2 text-xs font-sans text-black placeholder:text-neutral-400 focus:outline-none focus:border-[#051A6E] focus:ring-1 focus:ring-[#051A6E] transition-all disabled:opacity-50"
               />
               <motion.button
                 type="submit"
                 whileTap={{ scale: 0.95 }}
                 disabled={!inputMessage.trim() || isLoading}
                 aria-label="Send message to Concierge"
-                className="w-8 h-8 rounded-xl bg-[#264653] text-white flex items-center justify-center hover:bg-[#1e3742] transition-colors disabled:opacity-40 disabled:pointer-events-none shadow-xs shrink-0"
+                className="w-9 h-9 rounded-full bg-[#051A6E] text-white flex items-center justify-center hover:bg-[#041456] transition-colors disabled:opacity-40 disabled:pointer-events-none shrink-0"
               >
-                <Send className="w-3.5 h-3.5" />
+                <Send className="w-4 h-4" />
               </motion.button>
             </form>
           </motion.div>

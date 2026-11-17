@@ -37,16 +37,16 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
   return (
     <>
       {/* Top Mobile Bar */}
-      <div className="lg:hidden flex items-center justify-between bg-[#19323A] px-4 py-3 border-b border-white/10 text-white sticky top-0 z-40">
+      <div className="lg:hidden flex items-center justify-between bg-[#2D2D2D] px-4 py-3 border-b border-white/10 text-white sticky top-0 z-40">
         <div className="flex items-center space-x-2">
-          <span className="font-serif tracking-widest text-lg font-bold text-[#E76F51]">LOOMERA</span>
-          <span className="text-xs uppercase tracking-wider text-emerald-400 font-medium px-2 py-0.5 rounded bg-white/5 border border-white/10">
-            Atelier
+          <span className="font-sans tracking-widest text-lg font-bold text-white">LOOMERA</span>
+          <span className="text-[10px] uppercase tracking-wider text-white/80 font-bold px-2 py-0.5 bg-[#051A6E] border border-white/10">
+            ADMIN
           </span>
         </div>
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="p-2 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:text-white"
+          className="p-2 bg-white/10 border border-white/10 text-white/80 hover:text-white"
           aria-label="Toggle navigation"
         >
           {isMobileMenuOpen ? "✕" : "☰"}
@@ -55,7 +55,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-[#1A333B] text-[#FAF8F5] border-r border-white/10 flex flex-col transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-[#2D2D2D] text-white border-r border-white/10 flex flex-col transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -63,15 +63,15 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
         <div className="p-6 border-b border-white/10">
           <Link href="/" className="group block">
             <div className="flex items-center justify-between">
-              <span className="font-serif tracking-[0.25em] text-2xl font-bold text-white group-hover:text-[#E76F51] transition-colors">
+              <span className="font-sans tracking-[0.25em] text-2xl font-bold text-white group-hover:text-neutral-300 transition-colors">
                 LOOMERA
               </span>
-              <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded font-mono font-semibold bg-[#2A9D8F]/20 text-[#2A9D8F] border border-[#2A9D8F]/30">
+              <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 font-mono font-bold bg-[#051A6E] text-white">
                 {user.role}
               </span>
             </div>
-            <p className="text-xs text-[#FAF8F5]/60 mt-1 uppercase tracking-wider font-sans">
-              Atelier Command Center
+            <p className="text-xs text-white/60 mt-1 uppercase tracking-wider font-sans">
+              Operations &amp; Intelligence
             </p>
           </Link>
         </div>
@@ -85,10 +85,10 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                className={`flex items-center justify-between px-3.5 py-2.5 text-sm font-semibold tracking-wide transition-all ${
                   active
-                    ? "bg-[#264653] text-white shadow-sm border border-[#2A9D8F]/40"
-                    : "text-[#FAF8F5]/70 hover:text-white hover:bg-white/5"
+                    ? "bg-[#051A6E] text-white shadow-sm"
+                    : "text-white/70 hover:text-white hover:bg-white/10"
                 }`}
               >
                 <div className="flex items-center space-x-3">
@@ -96,7 +96,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
                   <span>{item.label}</span>
                 </div>
                 {active && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E76F51]" />
+                  <span className="w-1.5 h-1.5 bg-white" />
                 )}
               </Link>
             );
@@ -104,26 +104,26 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
         </nav>
 
         {/* User Card & Storefront Switcher */}
-        <div className="p-4 border-t border-white/10 bg-[#142930]">
+        <div className="p-4 border-t border-white/10 bg-[#1F1F1F]">
           <div className="flex items-center justify-between mb-3">
             <div className="min-w-0 pr-2">
-              <p className="text-sm font-medium text-white truncate">{user.fullName}</p>
-              <p className="text-xs text-[#FAF8F5]/50 truncate">{user.email}</p>
+              <p className="text-sm font-bold text-white truncate">{user.fullName}</p>
+              <p className="text-xs text-white/50 truncate">{user.email}</p>
             </div>
-            <div className="w-8 h-8 rounded-full bg-[#2A9D8F]/20 border border-[#2A9D8F]/40 flex items-center justify-center text-xs font-semibold text-[#2A9D8F]">
+            <div className="w-8 h-8 bg-[#051A6E] border border-white/20 flex items-center justify-center text-xs font-bold text-white">
               {user.fullName.charAt(0).toUpperCase()}
             </div>
           </div>
-          <div className="flex items-center space-x-2 pt-2 border-t border-white/5">
+          <div className="flex items-center space-x-2 pt-2 border-t border-white/10">
             <Link
               href="/"
-              className="flex-1 text-center text-xs py-1.5 rounded bg-white/5 hover:bg-white/10 text-white/80 hover:text-white border border-white/10 transition-colors"
+              className="flex-1 text-center text-xs py-1.5 bg-white/10 hover:bg-white/20 text-white font-bold uppercase tracking-wider border border-white/10 transition-colors"
             >
               ← Storefront
             </Link>
             <Link
               href="/orders"
-              className="flex-1 text-center text-xs py-1.5 rounded bg-white/5 hover:bg-white/10 text-white/80 hover:text-white border border-white/10 transition-colors"
+              className="flex-1 text-center text-xs py-1.5 bg-white/10 hover:bg-white/20 text-white font-bold uppercase tracking-wider border border-white/10 transition-colors"
             >
               My Orders
             </Link>

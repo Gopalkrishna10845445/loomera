@@ -1,19 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, DM_Sans } from "next/font/google";
+import { Jost } from "next/font/google";
 import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
 import { AttributionTracker } from "@/components/AttributionTracker";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const jost = Jost({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-futura-web",
   display: "swap",
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const viewport: Viewport = {
@@ -24,9 +20,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
-  title: "LOOMERA — Luxury Menswear & Young Gentleman's Tailoring",
+  title: "LOOMERA — Editorial Linen & Handloom Fashion Commerce",
   description:
-    "Thoughtful fabrics. Everyday comfort. Timeless, architectural tailoring sculpted strictly from raw linen, unbleached cotton, and heritage looms for men and boys.",
+    "Premium men's and boys' linen and handloom fashion commerce. Pure European flax linen, heritage handloom kurtas, and modern gentleman tailoring.",
 };
 
 export default function RootLayout({
@@ -37,12 +33,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${dmSans.variable}`}
+      className={jost.variable}
     >
-      <body className="bg-surface font-sans text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed overflow-x-hidden min-h-screen">
+      <body className="bg-white font-sans text-black antialiased selection:bg-[#051A6E] selection:text-white overflow-x-hidden min-h-screen">
         <AuthProvider>
-          <AttributionTracker />
-          {children}
+          <CartProvider>
+            <AttributionTracker />
+            {children}
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

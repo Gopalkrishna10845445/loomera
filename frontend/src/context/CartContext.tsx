@@ -47,25 +47,10 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    if (typeof window === "undefined") return [];
-    try {
-      const saved = localStorage.getItem("loomera_cart");
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [wishlist, setWishlist] = useState<string[]>([]);
+  const [hasHydrated, setHasHydrated] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [wishlist, setWishlist] = useState<string[]>(() => {
-    if (typeof window === "undefined") return [];
-    try {
-      const saved = localStorage.getItem("loomera_wishlist");
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
   const [toast, setToast] = useState<ToastState>({
@@ -73,6 +58,32 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     icon: "check_circle",
     isOpen: false,
   });
+
+  // Hydrate local offline/guest storage on mount once client is active
+  useEffect(() => {
+    queueMicrotask(() => {
+      try {
+        const savedCart = localStorage.getItem("loomera_cart");
+        if (savedCart) {
+          const parsed = JSON.parse(savedCart);
+          if (Array.isArray(parsed)) {
+            setCart(parsed);
+          }
+        }
+        const savedWishlist = localStorage.getItem("loomera_wishlist");
+        if (savedWishlist) {
+          const parsed = JSON.parse(savedWishlist);
+          if (Array.isArray(parsed)) {
+            setWishlist(parsed);
+          }
+        }
+      } catch {
+        // Ignore storage/parse errors
+      } finally {
+        setHasHydrated(true);
+      }
+    });
+  }, []);
 
   // When authenticated user changes or logs in, sync with server
   useEffect(() => {
@@ -97,22 +108,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [user]);
 
-  // Save changes to localStorage for offline / guest resilience
+  // Save changes to localStorage for offline / guest resilience only after hydration
   useEffect(() => {
+    if (!hasHydrated) return;
     try {
       localStorage.setItem("loomera_cart", JSON.stringify(cart));
     } catch {
       // Ignore
     }
-  }, [cart]);
+  }, [cart, hasHydrated]);
 
   useEffect(() => {
+    if (!hasHydrated) return;
     try {
       localStorage.setItem("loomera_wishlist", JSON.stringify(wishlist));
     } catch {
       // Ignore
     }
-  }, [wishlist]);
+  }, [wishlist, hasHydrated]);
 
   const showToast = (message: string, icon = "check_circle") => {
     setToast({ message, icon, isOpen: true });

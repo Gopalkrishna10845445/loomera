@@ -50,7 +50,7 @@ export default function ChatMessage({
   if (isUser) {
     return (
       <div className="flex justify-end mb-3.5">
-        <div className="max-w-[85%] bg-[#264653] text-[#FAF8F5] rounded-2xl rounded-tr-xs px-3.5 py-2.5 shadow-xs text-xs font-sans leading-relaxed">
+        <div className="max-w-[85%] bg-[#051A6E] text-white rounded-lg px-3.5 py-2.5 text-xs font-sans leading-relaxed">
           {message.content}
         </div>
       </div>
@@ -60,46 +60,46 @@ export default function ChatMessage({
   return (
     <div className="flex flex-col mb-4 text-left">
       {/* Concierge Avatar & Title */}
-      <div className="flex items-center gap-1.5 mb-1.5 text-stone-500">
-        <div className="w-5 h-5 rounded-full bg-[#2A9D8F]/15 flex items-center justify-center text-[#2A9D8F]">
+      <div className="flex items-center gap-1.5 mb-1.5 text-neutral-500">
+        <div className="w-5 h-5 rounded-full bg-[#051A6E]/10 flex items-center justify-center text-[#051A6E]">
           <Sparkles className="w-3 h-3" />
         </div>
-        <span className="text-[11px] font-sans font-semibold text-[#264653] tracking-wide">
-          LOOMERA Concierge
+        <span className="text-[11px] font-sans font-bold text-black uppercase tracking-wider">
+          LOOMERA AI
         </span>
       </div>
 
       {/* Message Bubble */}
-      <div className="bg-[#FAF8F5] border border-[#e8e4db] rounded-2xl rounded-tl-xs px-3.5 py-2.5 text-xs text-[#264653] font-sans leading-relaxed shadow-2xs">
+      <div className="bg-white border border-[#E5E7EB] rounded-lg px-3.5 py-2.5 text-xs text-black font-sans leading-relaxed">
         {message.content}
       </div>
 
       {/* Product Comparison View */}
       {message.comparison && (
-        <div className="mt-2.5 p-3 rounded-xl border border-stone-300 bg-white shadow-xs text-xs font-sans">
-          <div className="flex items-center gap-1.5 font-serif font-bold text-[#264653] border-b border-stone-200 pb-2 mb-2">
-            <Scale className="w-3.5 h-3.5 text-[#E76F51]" />
+        <div className="mt-2.5 p-3 rounded-lg border border-[#E5E7EB] bg-white text-xs font-sans">
+          <div className="flex items-center gap-1.5 font-sans font-bold text-black uppercase tracking-wide border-b border-[#E5E7EB] pb-2 mb-2">
+            <Scale className="w-3.5 h-3.5 text-[#051A6E]" />
             <span>Garment Comparison Matrix</span>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-[11px] border-collapse">
               <thead>
-                <tr className="border-b border-stone-200">
-                  <th className="py-1 px-2 font-semibold text-stone-500 w-1/3">Attribute</th>
+                <tr className="border-b border-[#E5E7EB]">
+                  <th className="py-1 px-2 font-bold text-neutral-500 uppercase tracking-wider w-1/3">Attribute</th>
                   {message.comparison.products.map((p) => (
-                    <th key={p.id} className="py-1 px-2 font-bold text-[#264653] w-1/3">
+                    <th key={p.id} className="py-1 px-2 font-bold text-black w-1/3">
                       {p.title}
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-100">
+              <tbody className="divide-y divide-[#E5E7EB]">
                 {message.comparison.attributes.map((attr) => (
-                  <tr key={attr.key} className="hover:bg-stone-50/50">
-                    <td className="py-1.5 px-2 font-medium text-stone-600">{attr.label}</td>
+                  <tr key={attr.key} className="hover:bg-neutral-50">
+                    <td className="py-1.5 px-2 font-medium text-neutral-600">{attr.label}</td>
                     {attr.values.map((v) => (
-                      <td key={v.productId} className="py-1.5 px-2 text-stone-800">
+                      <td key={v.productId} className="py-1.5 px-2 text-black">
                         {v.displayValue}
                       </td>
                     ))}
@@ -110,8 +110,8 @@ export default function ChatMessage({
           </div>
 
           {message.comparison.differences && message.comparison.differences.length > 0 && (
-            <div className="mt-2 pt-2 border-t border-stone-100 text-[10px] text-stone-600">
-              <span className="font-semibold text-[#264653]">Key Distinction: </span>
+            <div className="mt-2 pt-2 border-t border-[#E5E7EB] text-[10px] text-neutral-600">
+              <span className="font-bold text-black">Key Distinction: </span>
               {message.comparison.differences[0]}
             </div>
           )}
@@ -120,12 +120,12 @@ export default function ChatMessage({
 
       {/* Complementary Styling Advice Component */}
       {message.complementary && message.complementary.length > 0 && (
-        <div className="mt-2.5 p-2.5 rounded-xl border border-[#2A9D8F]/30 bg-[#2A9D8F]/5 text-xs font-sans">
-          <div className="flex items-center gap-1.5 font-semibold text-[11px] text-[#2A9D8F] mb-1.5">
+        <div className="mt-2.5 p-2.5 rounded-lg border border-[#E5E7EB] bg-neutral-50 text-xs font-sans">
+          <div className="flex items-center gap-1.5 font-bold text-[11px] text-[#051A6E] uppercase tracking-wide mb-1.5">
             <Shirt className="w-3.5 h-3.5" />
-            <span>Stylist&apos;s Complete-The-Look Recommendation</span>
+            <span>Complete The Look Recommendation</span>
           </div>
-          <p className="text-[11px] text-stone-600 italic mb-2">
+          <p className="text-[11px] text-neutral-700 italic mb-2">
             &ldquo;{message.complementary[0].stylingAdvice}&rdquo;
           </p>
         </div>
@@ -133,18 +133,18 @@ export default function ChatMessage({
 
       {/* Availability Card Component */}
       {message.availability && (
-        <div className="mt-2.5 p-3 rounded-xl border border-stone-200 bg-white shadow-2xs text-xs font-sans">
+        <div className="mt-2.5 p-3 rounded-lg border border-[#E5E7EB] bg-white text-xs font-sans">
           <div className="flex items-center justify-between mb-1">
-            <span className="font-semibold text-[#264653]">
+            <span className="font-bold text-black">
               {message.availability.title}
             </span>
             <span
-              className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+              className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
                 message.availability.status === "in_stock"
                   ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                   : message.availability.status === "low_stock"
                   ? "bg-amber-50 text-amber-700 border border-amber-200"
-                  : "bg-rose-50 text-rose-700 border border-rose-200"
+                  : "bg-red-50 text-[#D92D20] border border-red-200"
               }`}
             >
               {message.availability.status === "in_stock"
@@ -156,16 +156,16 @@ export default function ChatMessage({
           </div>
 
           {message.availability.size && (
-            <div className="text-[11px] text-stone-600 mb-1">
-              Requested: <span className="font-semibold text-[#264653]">Size {message.availability.size}</span>
+            <div className="text-[11px] text-neutral-600 mb-1">
+              Requested: <span className="font-bold text-black">Size {message.availability.size}</span>
               {message.availability.color && ` • ${message.availability.color}`}
             </div>
           )}
 
           {message.availability.availableSizes && message.availability.availableSizes.length > 0 && (
-            <div className="text-[10px] text-stone-500">
+            <div className="text-[10px] text-neutral-500">
               Available sizes:{" "}
-              <span className="text-[#264653] font-medium">
+              <span className="text-black font-bold">
                 {message.availability.availableSizes.join(", ")}
               </span>
             </div>
@@ -177,7 +177,7 @@ export default function ChatMessage({
                 type="button"
                 onClick={() => handleNotifyMe(message.availability!.matchingVariantId!)}
                 disabled={isNotified}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#264653] text-white text-[11px] font-medium hover:bg-[#1e3742] transition-colors disabled:opacity-70"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#051A6E] text-white text-[11px] font-bold uppercase tracking-wider hover:bg-[#041456] transition-colors disabled:opacity-70"
               >
                 {isNotified ? (
                   <>
@@ -186,7 +186,7 @@ export default function ChatMessage({
                   </>
                 ) : (
                   <>
-                    <Bell className="w-3 h-3 text-[#F4ED4F]" />
+                    <Bell className="w-3 h-3 text-white" />
                     <span>Notify Me When Available</span>
                   </>
                 )}

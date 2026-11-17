@@ -1,11 +1,12 @@
 import React from "react";
-import { CartProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import CollectionsGrid from "@/components/CollectionsGrid";
 import BenefitsStrip from "@/components/BenefitsStrip";
 import NewArrivalsGrid from "@/components/NewArrivalsGrid";
-import FabricInspector from "@/components/FabricInspector";
+import FeaturedCollectionsBanner from "@/components/FeaturedCollectionsBanner";
+import BestSellersGrid from "@/components/BestSellersGrid";
+import BrandStorySection from "@/components/BrandStorySection";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 import SearchModal from "@/components/SearchModal";
@@ -24,27 +25,42 @@ export default async function HomePage() {
   }
 
   return (
-    <CartProvider>
-      <div className="flex flex-col min-h-screen bg-[#faf8f5]">
-        <Header />
+    <div className="flex flex-col min-h-screen bg-white">
+      {/* 3-Tier Commercial Header */}
+      <Header />
 
-        <main className="w-full">
-          <HeroSection />
-          <CollectionsGrid />
-          <BenefitsStrip />
-          <NewArrivalsGrid products={products.length > 0 ? products : undefined} />
-          <FabricInspector />
-        </main>
+      <main className="w-full">
+        {/* Section 1 — Hero Campaign */}
+        <HeroSection />
 
-        <Footer />
+        {/* Commercial Assurance Benefits */}
+        <BenefitsStrip />
 
-        {/* Global Overlays & Modals */}
-        <CartDrawer />
-        <SearchModal />
-        <SizeGuideModal />
-        <ToastNotification />
-        <AiAssistantWidget />
-      </div>
-    </CartProvider>
+        {/* Section 2 — Category Shopping (MEN & BOYS) */}
+        <CollectionsGrid />
+
+        {/* Section 3 — New Arrivals */}
+        <NewArrivalsGrid products={products.length > 0 ? products : undefined} />
+
+        {/* Section 4 — Featured Collections (Editorial Banners) */}
+        <FeaturedCollectionsBanner />
+
+        {/* Section 5 — Best Sellers */}
+        <BestSellersGrid products={products.length > 0 ? products : undefined} />
+
+        {/* Section 6 — Brand Story & Textile Heritage */}
+        <BrandStorySection />
+      </main>
+
+      {/* Section 8 — Full-Width Structured Footer with Newsletter */}
+      <Footer />
+
+      {/* Global Overlays & Modals */}
+      <CartDrawer />
+      <SearchModal />
+      <SizeGuideModal />
+      <ToastNotification />
+      <AiAssistantWidget />
+    </div>
   );
 }

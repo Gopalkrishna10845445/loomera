@@ -4,7 +4,6 @@ import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { CartProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
@@ -67,38 +66,38 @@ function RegisterForm() {
   return (
     <div className="w-full max-w-md mx-auto">
       {/* Header Banner */}
-      <div className="text-center mb-space-xl">
-        <span className="font-label-caps text-label-caps text-[#2A9D8F] uppercase tracking-widest font-bold">
-          Patron Concierge
+      <div className="text-center mb-8">
+        <span className="text-xs font-bold uppercase tracking-[2px] text-[#051A6E]">
+          NEW TO LOOMERA
         </span>
-        <h1 className="font-headline-lg text-3xl sm:text-4xl text-[#264653] font-serif mt-2">
-          JOIN THE ATELIER
+        <h1 className="text-3xl sm:text-4xl font-bold uppercase tracking-tight text-black mt-1">
+          CREATE ACCOUNT
         </h1>
-        <p className="font-body-md text-[#474741] mt-2 text-sm">
-          Create an exclusive patron profile to save tailorings, curate silhouettes, and sync bag across devices.
+        <p className="text-xs sm:text-sm text-gray-600 mt-2">
+          Join for instant checkout, order tracking, and exclusive edit access.
         </p>
       </div>
 
       {/* Card Form */}
-      <div className="bg-surface-container-low p-space-xl sm:p-8 border border-stitch rounded-xs shadow-xs">
+      <div className="bg-white p-6 sm:p-8 border border-[#E5E7EB]">
         {error && (
           <div
             role="alert"
-            className="mb-space-md p-3.5 bg-[#E76F51]/10 border border-[#E76F51]/30 rounded-2xs flex items-start gap-2.5 text-[#E76F51] text-xs font-medium"
+            className="mb-6 p-3.5 bg-red-50 border border-red-200 flex items-start gap-2.5 text-[#D92D20] text-xs font-medium"
           >
             <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
             <span>{error}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-space-md">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Full Name */}
           <div>
             <label
               htmlFor="fullName"
-              className="font-label-caps text-[10px] uppercase text-[#474741] block mb-1.5 font-semibold tracking-wider"
+              className="text-xs uppercase font-bold tracking-wider text-black block mb-1.5"
             >
-              Full Name
+              FULL NAME *
             </label>
             <div className="relative">
               <input
@@ -108,10 +107,10 @@ function RegisterForm() {
                 autoComplete="name"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                placeholder="Lord / Lady Carrington"
-                className="w-full bg-surface pl-10 pr-space-md py-3 font-body-md text-sm text-[#264653] border border-stitch rounded-2xs focus-luxury transition-all placeholder:text-[#8a8a82]"
+                placeholder="e.g. Arjun Mehta"
+                className="w-full bg-white pl-10 pr-4 py-3 text-sm text-black border border-[#E5E7EB] focus:border-black outline-none placeholder:text-gray-400 font-futura"
               />
-              <User className="w-4 h-4 text-[#8a8a82] absolute left-3.5 top-3.5 pointer-events-none" />
+              <User className="w-4 h-4 text-gray-400 absolute left-3.5 top-3.5 pointer-events-none" />
             </div>
           </div>
 
@@ -119,9 +118,9 @@ function RegisterForm() {
           <div>
             <label
               htmlFor="email"
-              className="font-label-caps text-[10px] uppercase text-[#474741] block mb-1.5 font-semibold tracking-wider"
+              className="text-xs uppercase font-bold tracking-wider text-black block mb-1.5"
             >
-              Email Address
+              EMAIL ADDRESS *
             </label>
             <div className="relative">
               <input
@@ -131,10 +130,10 @@ function RegisterForm() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="patron@example.com"
-                className="w-full bg-surface pl-10 pr-space-md py-3 font-body-md text-sm text-[#264653] border border-stitch rounded-2xs focus-luxury transition-all placeholder:text-[#8a8a82]"
+                placeholder="name@example.com"
+                className="w-full bg-white pl-10 pr-4 py-3 text-sm text-black border border-[#E5E7EB] focus:border-black outline-none placeholder:text-gray-400 font-futura"
               />
-              <Mail className="w-4 h-4 text-[#8a8a82] absolute left-3.5 top-3.5 pointer-events-none" />
+              <Mail className="w-4 h-4 text-gray-400 absolute left-3.5 top-3.5 pointer-events-none" />
             </div>
           </div>
 
@@ -142,9 +141,9 @@ function RegisterForm() {
           <div>
             <label
               htmlFor="password"
-              className="font-label-caps text-[10px] uppercase text-[#474741] block mb-1.5 font-semibold tracking-wider"
+              className="text-xs uppercase font-bold tracking-wider text-black block mb-1.5"
             >
-              Password
+              PASSWORD *
             </label>
             <div className="relative">
               <input
@@ -155,9 +154,9 @@ function RegisterForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Min 8 characters (letters & numbers)"
-                className="w-full bg-surface pl-10 pr-space-md py-3 font-body-md text-sm text-[#264653] border border-stitch rounded-2xs focus-luxury transition-all placeholder:text-[#8a8a82]"
+                className="w-full bg-white pl-10 pr-4 py-3 text-sm text-black border border-[#E5E7EB] focus:border-black outline-none placeholder:text-gray-400 font-futura"
               />
-              <Lock className="w-4 h-4 text-[#8a8a82] absolute left-3.5 top-3.5 pointer-events-none" />
+              <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-3.5 pointer-events-none" />
             </div>
           </div>
 
@@ -165,9 +164,9 @@ function RegisterForm() {
           <div>
             <label
               htmlFor="passwordConfirmation"
-              className="font-label-caps text-[10px] uppercase text-[#474741] block mb-1.5 font-semibold tracking-wider"
+              className="text-xs uppercase font-bold tracking-wider text-black block mb-1.5"
             >
-              Confirm Password
+              CONFIRM PASSWORD *
             </label>
             <div className="relative">
               <input
@@ -178,27 +177,27 @@ function RegisterForm() {
                 value={passwordConfirmation}
                 onChange={(e) => setPasswordConfirmation(e.target.value)}
                 placeholder="Re-enter password"
-                className="w-full bg-surface pl-10 pr-space-md py-3 font-body-md text-sm text-[#264653] border border-stitch rounded-2xs focus-luxury transition-all placeholder:text-[#8a8a82]"
+                className="w-full bg-white pl-10 pr-4 py-3 text-sm text-black border border-[#E5E7EB] focus:border-black outline-none placeholder:text-gray-400 font-futura"
               />
-              <Lock className="w-4 h-4 text-[#8a8a82] absolute left-3.5 top-3.5 pointer-events-none" />
+              <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-3.5 pointer-events-none" />
             </div>
           </div>
 
           {/* Validation Checklist */}
           {password.length > 0 && (
-            <div className="bg-surface p-3 rounded-2xs border border-stitch flex flex-col gap-1 text-[11px] text-[#525547]">
+            <div className="bg-gray-50 p-3 border border-[#E5E7EB] flex flex-col gap-1.5 text-xs text-gray-600">
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className={`w-3.5 h-3.5 ${hasMinLen ? "text-[#2A9D8F]" : "text-[#8a8a82]"}`} />
-                <span className={hasMinLen ? "text-[#264653] font-medium" : ""}>At least 8 characters</span>
+                <CheckCircle2 className={`w-3.5 h-3.5 ${hasMinLen ? "text-[#027A48]" : "text-gray-400"}`} />
+                <span className={hasMinLen ? "text-black font-bold" : ""}>At least 8 characters</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className={`w-3.5 h-3.5 ${hasLetter && hasNumber ? "text-[#2A9D8F]" : "text-[#8a8a82]"}`} />
-                <span className={hasLetter && hasNumber ? "text-[#264653] font-medium" : ""}>Contains letters & numbers</span>
+                <CheckCircle2 className={`w-3.5 h-3.5 ${hasLetter && hasNumber ? "text-[#027A48]" : "text-gray-400"}`} />
+                <span className={hasLetter && hasNumber ? "text-black font-bold" : ""}>Contains letters &amp; numbers</span>
               </div>
               {passwordConfirmation.length > 0 && (
                 <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className={`w-3.5 h-3.5 ${passwordsMatch ? "text-[#2A9D8F]" : "text-[#E76F51]"}`} />
-                  <span className={passwordsMatch ? "text-[#2A9D8F] font-medium" : "text-[#E76F51]"}>
+                  <CheckCircle2 className={`w-3.5 h-3.5 ${passwordsMatch ? "text-[#027A48]" : "text-[#D92D20]"}`} />
+                  <span className={passwordsMatch ? "text-[#027A48] font-bold" : "text-[#D92D20]"}>
                     {passwordsMatch ? "Passwords match" : "Passwords do not match"}
                   </span>
                 </div>
@@ -206,17 +205,17 @@ function RegisterForm() {
             </div>
           )}
 
-          <div className="pt-space-xs">
+          <div className="pt-2">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#264653] text-white font-label-interactive text-xs uppercase tracking-widest py-3.5 hover:bg-[#2A9D8F] transition-all shadow-xs font-semibold rounded-2xs cursor-pointer focus-luxury flex items-center justify-center gap-2 disabled:opacity-60"
+              className="btn-primary w-full h-12 text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
             >
               {isSubmitting ? (
-                <span>Registering Patron...</span>
+                <span>CREATING ACCOUNT...</span>
               ) : (
                 <>
-                  <span>Create Atelier Account</span>
+                  <span>CREATE ACCOUNT</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
@@ -224,21 +223,21 @@ function RegisterForm() {
           </div>
         </form>
 
-        <div className="mt-space-lg pt-space-md border-t border-stitch text-center">
-          <p className="font-body-sm text-xs text-[#525547]">
-            Already an Atelier Patron?{" "}
+        <div className="mt-6 pt-6 border-t border-[#E5E7EB] text-center">
+          <p className="text-xs text-gray-600">
+            Already registered?{" "}
             <Link
               href={`/login${redirectPath ? `?redirect=${encodeURIComponent(redirectPath)}` : ""}`}
-              className="text-[#2A9D8F] hover:text-[#264653] font-semibold underline underline-offset-4 transition-colors"
+              className="text-[#051A6E] font-bold hover:underline"
             >
-              Sign In to Your Account
+              Sign In &rarr;
             </Link>
           </p>
         </div>
 
-        <div className="mt-4 flex items-center justify-center gap-1.5 text-[10px] text-[#8a8a82] uppercase tracking-wider font-label-caps">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#2A9D8F]" />
-          <span>Argon2id Encrypted &bull; Server-Side Session Isolation</span>
+        <div className="mt-4 flex items-center justify-center gap-1.5 text-[10px] text-gray-500 uppercase tracking-wider font-futura">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#051A6E]" />
+          <span>Argon2id Encrypted &bull; Server-Side Session Protection</span>
         </div>
       </div>
     </div>
@@ -247,31 +246,20 @@ function RegisterForm() {
 
 export default function RegisterPage() {
   return (
-    <CartProvider>
-      <div className="flex flex-col min-h-screen bg-surface">
-        <Header />
-        <main className="w-full pt-36 pb-space-3xl flex-1 flex items-center justify-center">
-          <div className="max-w-[1440px] w-full mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 font-label-caps text-[10px] uppercase text-[#474741] mb-space-lg max-w-md mx-auto">
-              <Link href="/" className="hover:text-[#264653] transition-colors">
-                Atelier
-              </Link>
-              <span>/</span>
-              <span className="text-[#264653] font-bold">Register</span>
-            </div>
-
-            <Suspense fallback={<div className="text-center py-12 text-sm text-[#474741]">Loading Registration Concierge...</div>}>
-              <RegisterForm />
-            </Suspense>
-          </div>
-        </main>
-        <Footer />
-        <CartDrawer />
-        <SearchModal />
-        <SizeGuideModal />
-        <ToastNotification />
-      </div>
-    </CartProvider>
+    <div className="flex flex-col min-h-screen bg-white">
+      <Header />
+      <main className="w-full py-12 sm:py-16 flex-1 flex items-center justify-center">
+        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8">
+          <Suspense fallback={<div className="text-center py-12 text-sm text-gray-500">Loading registration...</div>}>
+            <RegisterForm />
+          </Suspense>
+        </div>
+      </main>
+      <Footer />
+      <CartDrawer />
+      <SearchModal />
+      <SizeGuideModal />
+      <ToastNotification />
+    </div>
   );
 }

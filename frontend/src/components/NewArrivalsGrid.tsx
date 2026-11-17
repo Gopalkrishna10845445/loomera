@@ -1,45 +1,77 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import { PRODUCTS } from "@/data/mockData";
 import { Product } from "@/types";
 import ProductCard from "./ProductCard";
+import { ArrowRight } from "lucide-react";
 
 interface NewArrivalsGridProps {
   products?: Product[];
 }
 
 export default function NewArrivalsGrid({ products }: NewArrivalsGridProps) {
-  const displayProducts = products && products.length > 0 ? products.slice(0, 6) : PRODUCTS.slice(0, 6);
+  const allProducts = products && products.length > 0 ? products : PRODUCTS;
+  const [selectedFilter, setSelectedFilter] = useState<"ALL" | "MEN" | "BOYS" | "HANDLOOM">("ALL");
+
+  const filteredProducts = allProducts.filter((p) => {
+    if (selectedFilter === "ALL") return true;
+    if (selectedFilter === "MEN") return p.categorySlug === "men";
+    if (selectedFilter === "BOYS") return p.categorySlug === "boys" || p.categorySlug === "kids";
+    if (selectedFilter === "HANDLOOM") return p.categorySlug === "handloom";
+    return true;
+  });
 
   return (
-    <section className="w-full py-6 sm:py-8 bg-transparent scroll-mt-24 md:scroll-mt-28" id="new-arrivals">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header matching reference */}
-        <div className="flex items-center justify-between gap-4 mb-4 sm:mb-5">
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#264653]">
-              New Arrivals
-            </h2>
-            <span className="hidden sm:inline-block w-6 h-[2px] bg-[#e6c84f]"></span>
-            <span className="text-xs sm:text-sm text-[#525547] font-normal">
-              Fresh styles for your everyday wardrobe.
+    <section className="w-full py-14 sm:py-18 bg-white border-b border-[#E5E7EB]" id="new-arrivals">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-4 border-b border-[#E5E7EB]">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-[1.5px] text-[#051A6E]">
+              JUST DROPPED
             </span>
+            <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black mt-1">
+              NEW ARRIVALS
+            </h2>
           </div>
 
-          <Link
-            href="/collections/new-arrivals"
-            className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#2A9D8F] hover:text-[#264653] transition-colors cursor-pointer flex-shrink-0"
-          >
-            <span>View All</span>
-            <span className="font-bold">&rarr;</span>
-          </Link>
+          {/* Quick Filter Tabs */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
+            {(["ALL", "MEN", "BOYS", "HANDLOOM"] as const).map((filter) => (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => setSelectedFilter(filter)}
+                className={`px-3.5 py-1.5 text-xs uppercase font-bold tracking-wider rounded-none cursor-pointer transition-colors ${
+                  selectedFilter === filter
+                    ? "bg-[#051A6E] text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* 6-Column Grid matching reference */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-          {displayProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+        {/* 4-Column Product Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {filteredProducts.slice(0, 8).map((product, idx) => (
+            <ProductCard key={product.id} product={product} priority={idx < 4} />
           ))}
+        </div>
+
+        {/* Bottom Action */}
+        <div className="mt-10 text-center">
+          <Link
+            href="/collections/new-arrivals"
+            className="btn-secondary w-56 inline-flex items-center justify-center gap-2"
+          >
+            <span>VIEW ALL NEW ARRIVALS</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>

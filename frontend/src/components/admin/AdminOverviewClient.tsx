@@ -26,29 +26,29 @@ export default function AdminOverviewClient({
   return (
     <div className="space-y-8">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-stone-200/80 pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#E5E7EB] pb-6">
         <div>
-          <span className="text-xs uppercase font-mono tracking-widest text-[#2A9D8F] font-semibold">
+          <span className="text-xs uppercase font-mono tracking-widest text-[#051A6E] font-bold">
             Command Center
           </span>
-          <h1 className="text-3xl font-serif font-bold text-stone-900 tracking-tight">
+          <h1 className="text-3xl font-sans font-bold text-black tracking-tight uppercase">
             Atelier Overview
           </h1>
-          <p className="text-sm text-stone-600 mt-1">
+          <p className="text-sm text-[#2D2D2D] mt-1">
             Real-time business performance, order velocity, and inventory health.
           </p>
         </div>
         <div className="flex items-center gap-3">
           <Link
             href="/admin/products"
-            className="px-4 py-2 rounded-lg bg-[#264653] text-white text-xs font-semibold tracking-wider uppercase hover:bg-[#1E353F] transition-all shadow-sm flex items-center gap-1.5"
+            className="px-4 py-2 bg-[#051A6E] text-white text-xs font-bold tracking-wider uppercase hover:bg-[#041456] transition-all flex items-center gap-1.5"
           >
             <span>+</span>
             <span>New Garment</span>
           </Link>
           <Link
             href="/admin/inventory"
-            className="px-4 py-2 rounded-lg bg-white border border-stone-300 text-stone-700 text-xs font-semibold tracking-wider uppercase hover:bg-stone-50 transition-all shadow-sm"
+            className="px-4 py-2 bg-white border border-[#E5E7EB] text-black text-xs font-bold tracking-wider uppercase hover:bg-neutral-50 transition-all"
           >
             Adjust Stock
           </Link>
@@ -58,49 +58,47 @@ export default function AdminOverviewClient({
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Gross Revenue */}
-        <div className="bg-white rounded-xl p-5 border border-stone-200 shadow-sm relative overflow-hidden">
-          <div className="flex items-center justify-between text-stone-500 mb-2">
-            <span className="text-xs uppercase font-medium tracking-wider">Gross Revenue</span>
+        <div className="bg-white rounded-lg p-5 border border-[#E5E7EB] relative overflow-hidden">
+          <div className="flex items-center justify-between text-neutral-500 mb-2">
+            <span className="text-xs uppercase font-bold tracking-wider text-[#2D2D2D]">Gross Revenue</span>
             <span className="text-lg">💰</span>
           </div>
-          <p className="text-2xl font-serif font-bold text-stone-900">
+          <p className="text-2xl font-sans font-bold text-black">
             {formatInr(summary.grossRevenueInr)}
           </p>
-          <div className="flex items-center gap-2 mt-2 text-xs text-stone-500">
+          <div className="flex items-center gap-2 mt-2 text-xs text-neutral-500">
             <span>Net: {formatInr(summary.netRevenueInr)}</span>
             <span>•</span>
             <span>{summary.paidOrders} paid orders</span>
           </div>
-          <div className="absolute top-0 right-0 w-24 h-24 bg-[#2A9D8F]/5 rounded-bl-full pointer-events-none" />
         </div>
 
         {/* Total Orders */}
-        <div className="bg-white rounded-xl p-5 border border-stone-200 shadow-sm relative overflow-hidden">
-          <div className="flex items-center justify-between text-stone-500 mb-2">
-            <span className="text-xs uppercase font-medium tracking-wider">Orders Lifetime</span>
+        <div className="bg-white rounded-lg p-5 border border-[#E5E7EB] relative overflow-hidden">
+          <div className="flex items-center justify-between text-neutral-500 mb-2">
+            <span className="text-xs uppercase font-bold tracking-wider text-[#2D2D2D]">Orders Lifetime</span>
             <span className="text-lg">🛍️</span>
           </div>
-          <p className="text-2xl font-serif font-bold text-stone-900">
+          <p className="text-2xl font-sans font-bold text-black">
             {summary.totalOrders}
           </p>
-          <div className="flex items-center gap-2 mt-2 text-xs text-stone-500">
+          <div className="flex items-center gap-2 mt-2 text-xs text-neutral-500">
             <span>AOV: {formatInr(summary.averageOrderValueInr)}</span>
             <span>•</span>
             <span>{summary.cancelledOrders} cancelled</span>
           </div>
-          <div className="absolute top-0 right-0 w-24 h-24 bg-[#E76F51]/5 rounded-bl-full pointer-events-none" />
         </div>
 
         {/* Inventory Valuation */}
-        <div className="bg-white rounded-xl p-5 border border-stone-200 shadow-sm relative overflow-hidden">
-          <div className="flex items-center justify-between text-stone-500 mb-2">
-            <span className="text-xs uppercase font-medium tracking-wider">Inventory Value</span>
+        <div className="bg-white rounded-lg p-5 border border-[#E5E7EB] relative overflow-hidden">
+          <div className="flex items-center justify-between text-neutral-500 mb-2">
+            <span className="text-xs uppercase font-bold tracking-wider text-[#2D2D2D]">Inventory Value</span>
             <span className="text-lg">📦</span>
           </div>
-          <p className="text-2xl font-serif font-bold text-stone-900">
+          <p className="text-2xl font-sans font-bold text-black">
             {formatInr(summary.totalInventoryValuationInr)}
           </p>
-          <div className="flex items-center gap-2 mt-2 text-xs text-stone-500">
+          <div className="flex items-center gap-2 mt-2 text-xs text-neutral-500">
             <span>{summary.totalInventoryUnits} physical units</span>
             <span>•</span>
             <span>In warehouse</span>
@@ -108,21 +106,21 @@ export default function AdminOverviewClient({
         </div>
 
         {/* Inventory Health Alert */}
-        <div className="bg-white rounded-xl p-5 border border-stone-200 shadow-sm relative overflow-hidden">
-          <div className="flex items-center justify-between text-stone-500 mb-2">
-            <span className="text-xs uppercase font-medium tracking-wider">Stock Alerts</span>
+        <div className="bg-white rounded-lg p-5 border border-[#E5E7EB] relative overflow-hidden">
+          <div className="flex items-center justify-between text-neutral-500 mb-2">
+            <span className="text-xs uppercase font-bold tracking-wider text-[#2D2D2D]">Stock Alerts</span>
             <span className="text-lg">⚠️</span>
           </div>
           <div className="flex items-baseline gap-3">
-            <span className="text-2xl font-serif font-bold text-amber-600">
+            <span className="text-2xl font-sans font-bold text-amber-600">
               {summary.lowStockVariantCount}
             </span>
-            <span className="text-xs text-stone-500">Low Stock SKUs</span>
+            <span className="text-xs text-neutral-500 font-medium">Low Stock SKUs</span>
           </div>
           <div className="flex items-center gap-2 mt-2 text-xs">
-            <span className="font-semibold text-rose-600">{summary.outOfStockVariantCount} Out of Stock</span>
+            <span className="font-bold text-[#D92D20]">{summary.outOfStockVariantCount} Out of Stock</span>
             <span>•</span>
-            <Link href="/admin/inventory" className="text-[#2A9D8F] hover:underline font-medium">
+            <Link href="/admin/inventory" className="text-[#051A6E] hover:underline font-bold">
               Manage →
             </Link>
           </div>
@@ -132,32 +130,32 @@ export default function AdminOverviewClient({
       {/* Main Content Columns: Sales Chart / Top Products */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Sales Velocity Timeline */}
-        <div className="lg:col-span-2 bg-white rounded-xl p-6 border border-stone-200 shadow-sm">
+        <div className="lg:col-span-2 bg-white rounded-lg p-6 border border-[#E5E7EB]">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-lg font-serif font-bold text-stone-900">Sales Velocity</h2>
-              <p className="text-xs text-stone-500">Daily revenue trend over recent activity</p>
+              <h2 className="text-lg font-sans font-bold text-black uppercase tracking-tight">Sales Velocity</h2>
+              <p className="text-xs text-neutral-500">Daily revenue trend over recent activity</p>
             </div>
             <Link
               href="/admin/analytics"
-              className="text-xs text-[#2A9D8F] hover:underline font-medium"
+              className="text-xs text-[#051A6E] hover:underline font-bold"
             >
               Full Analytics →
             </Link>
           </div>
 
           {timeline.length === 0 ? (
-            <div className="h-48 flex items-center justify-center text-sm text-stone-400">
+            <div className="h-48 flex items-center justify-center text-sm text-neutral-400">
               No sales transactions recorded in current period.
             </div>
           ) : (
             <div className="space-y-3 pt-2">
               {timeline.slice(-7).map((point) => (
                 <div key={point.date} className="flex items-center justify-between text-xs">
-                  <span className="font-mono text-stone-500 w-24">{point.date}</span>
-                  <div className="flex-1 mx-4 bg-stone-100 rounded-full h-2 overflow-hidden">
+                  <span className="font-mono text-neutral-500 w-24">{point.date}</span>
+                  <div className="flex-1 mx-4 bg-neutral-100 rounded-full h-2 overflow-hidden">
                     <div
-                      className="bg-[#2A9D8F] h-full rounded-full"
+                      className="bg-[#051A6E] h-full rounded-full"
                       style={{
                         width: `${Math.min(
                           100,
@@ -166,7 +164,7 @@ export default function AdminOverviewClient({
                       }}
                     />
                   </div>
-                  <span className="font-semibold text-stone-900 w-24 text-right">
+                  <span className="font-bold text-black w-24 text-right">
                     {formatInr(point.grossRevenueInr)}
                   </span>
                 </div>
@@ -176,38 +174,38 @@ export default function AdminOverviewClient({
         </div>
 
         {/* Top Performing Garments */}
-        <div className="bg-white rounded-xl p-6 border border-stone-200 shadow-sm">
+        <div className="bg-white rounded-lg p-6 border border-[#E5E7EB]">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-lg font-serif font-bold text-stone-900">Bestsellers</h2>
-              <p className="text-xs text-stone-500">Top garments by units sold</p>
+              <h2 className="text-lg font-sans font-bold text-black uppercase tracking-tight">Bestsellers</h2>
+              <p className="text-xs text-neutral-500">Top garments by units sold</p>
             </div>
             <Link
               href="/admin/products"
-              className="text-xs text-[#2A9D8F] hover:underline font-medium"
+              className="text-xs text-[#051A6E] hover:underline font-bold"
             >
               Catalog →
             </Link>
           </div>
 
           {topProducts.length === 0 ? (
-            <div className="h-48 flex items-center justify-center text-sm text-stone-400">
+            <div className="h-48 flex items-center justify-center text-sm text-neutral-400">
               No customer garment sales recorded yet.
             </div>
           ) : (
             <div className="space-y-4">
               {topProducts.map((p, idx) => (
-                <div key={p.productId} className="flex items-center justify-between text-xs border-b border-stone-100 pb-3 last:border-none">
+                <div key={p.productId} className="flex items-center justify-between text-xs border-b border-neutral-100 pb-3 last:border-none">
                   <div className="flex items-center space-x-3">
-                    <span className="w-5 text-stone-400 font-mono font-bold">#{idx + 1}</span>
+                    <span className="w-5 text-neutral-400 font-mono font-bold">#{idx + 1}</span>
                     <div>
-                      <p className="font-medium text-stone-900 truncate max-w-[140px]">{p.productTitle}</p>
-                      <p className="text-[10px] uppercase text-stone-400">{p.categorySlug}</p>
+                      <p className="font-bold text-black truncate max-w-[140px]">{p.productTitle}</p>
+                      <p className="text-[10px] uppercase text-neutral-400 font-semibold">{p.categorySlug}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-stone-900">{formatInr(p.grossRevenueInr)}</p>
-                    <p className="text-[10px] text-stone-500">{p.unitsSold} pcs sold</p>
+                    <p className="font-bold text-black">{formatInr(p.grossRevenueInr)}</p>
+                    <p className="text-[10px] text-neutral-500">{p.unitsSold} pcs sold</p>
                   </div>
                 </div>
               ))}
@@ -217,33 +215,33 @@ export default function AdminOverviewClient({
       </div>
 
       {/* Category Performance Matrix */}
-      <div className="bg-white rounded-xl p-6 border border-stone-200 shadow-sm">
-        <h2 className="text-lg font-serif font-bold text-stone-900 mb-1">
-          Category Distribution & Revenue
+      <div className="bg-white rounded-lg p-6 border border-[#E5E7EB]">
+        <h2 className="text-lg font-sans font-bold text-black uppercase tracking-tight mb-1">
+          Category Distribution &amp; Revenue
         </h2>
-        <p className="text-xs text-stone-500 mb-4">
+        <p className="text-xs text-neutral-500 mb-4">
           Breakdown of published garments, units sold, and aggregate gross revenue.
         </p>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-stone-200 text-stone-500 uppercase tracking-wider font-semibold">
+              <tr className="border-b border-[#E5E7EB] text-neutral-500 uppercase tracking-wider font-bold">
                 <th className="py-3 px-4">Category</th>
                 <th className="py-3 px-4">Active Garments</th>
                 <th className="py-3 px-4">Units Dispatched</th>
                 <th className="py-3 px-4 text-right">Gross Sales</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-stone-100 text-stone-700">
+            <tbody className="divide-y divide-neutral-100 text-neutral-800">
               {categories.map((cat) => (
-                <tr key={cat.categorySlug} className="hover:bg-stone-50/80 transition-colors">
-                  <td className="py-3 px-4 font-medium text-stone-900">
-                    {cat.categoryName} <span className="text-stone-400 font-mono font-normal">({cat.categorySlug})</span>
+                <tr key={cat.categorySlug} className="hover:bg-neutral-50 transition-colors">
+                  <td className="py-3 px-4 font-bold text-black">
+                    {cat.categoryName} <span className="text-neutral-400 font-mono font-normal">({cat.categorySlug})</span>
                   </td>
                   <td className="py-3 px-4">{cat.activeProductCount} garments</td>
                   <td className="py-3 px-4">{cat.unitsSold} units</td>
-                  <td className="py-3 px-4 text-right font-semibold text-stone-900">
+                  <td className="py-3 px-4 text-right font-bold text-black">
                     {formatInr(cat.grossRevenueInr)}
                   </td>
                 </tr>

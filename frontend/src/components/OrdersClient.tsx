@@ -3,7 +3,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CartProvider } from "@/context/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
@@ -11,7 +10,7 @@ import SearchModal from "@/components/SearchModal";
 import SizeGuideModal from "@/components/SizeGuideModal";
 import ToastNotification from "@/components/ToastNotification";
 import AiAssistantWidget from "@/components/assistant/AiAssistantWidget";
-import { PackageOpen, ArrowRight, ShieldCheck, Clock, CheckCircle2, XCircle } from "lucide-react";
+import { PackageOpen, ArrowRight, Clock, CheckCircle2, XCircle } from "lucide-react";
 import { formatInr } from "@/lib/currency";
 import { OrderWithDetails } from "@/lib/orders/order-service";
 
@@ -26,7 +25,7 @@ function StatusBadge({ status }: { status: string }) {
     case "CONFIRMED":
     case "PROCESSING":
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#2A9D8F]/15 text-[#2A9D8F] text-[11px] font-bold uppercase rounded-full tracking-wider">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-green-50 text-[#027A48] border border-green-200 text-xs font-bold uppercase rounded-none tracking-wider">
           <CheckCircle2 className="w-3.5 h-3.5" />
           <span>{status}</span>
         </span>
@@ -35,7 +34,7 @@ function StatusBadge({ status }: { status: string }) {
     case "OUT_FOR_DELIVERY":
     case "DELIVERED":
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#264653]/15 text-[#264653] text-[11px] font-bold uppercase rounded-full tracking-wider">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-50 text-[#051A6E] border border-blue-200 text-xs font-bold uppercase rounded-none tracking-wider">
           <CheckCircle2 className="w-3.5 h-3.5" />
           <span>{status}</span>
         </span>
@@ -43,7 +42,7 @@ function StatusBadge({ status }: { status: string }) {
     case "CANCELLED":
     case "RETURNED":
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-100 text-red-700 text-[11px] font-bold uppercase rounded-full tracking-wider">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-50 text-[#D92D20] border border-red-200 text-xs font-bold uppercase rounded-none tracking-wider">
           <XCircle className="w-3.5 h-3.5" />
           <span>{status}</span>
         </span>
@@ -51,7 +50,7 @@ function StatusBadge({ status }: { status: string }) {
     case "PENDING_PAYMENT":
     default:
       return (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-amber-100 text-amber-800 text-[11px] font-bold uppercase rounded-full tracking-wider">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold uppercase rounded-none tracking-wider">
           <Clock className="w-3.5 h-3.5" />
           <span>{status.replace(/_/g, " ")}</span>
         </span>
@@ -61,72 +60,70 @@ function StatusBadge({ status }: { status: string }) {
 
 function OrdersContent({ user, orders }: { user: OrdersUser; orders: OrderWithDetails[] }) {
   return (
-    <main className="w-full pt-36 pb-space-3xl">
-      <div className="max-w-[1240px] mx-auto px-margin md:px-margin-tablet lg:px-margin-desktop">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 font-label-caps text-[10px] uppercase text-[#474741] mb-space-md">
-          <Link href="/" className="hover:text-[#264653] transition-colors">
-            Atelier
+    <main className="w-full py-8 sm:py-12 bg-white">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-8">
+        {/* Breadcrumb Navigation */}
+        <nav
+          aria-label="Breadcrumb"
+          className="flex items-center gap-2 text-xs uppercase tracking-wider text-gray-500 mb-6 font-futura"
+        >
+          <Link href="/" className="hover:text-black transition-colors">
+            HOME
           </Link>
           <span>/</span>
-          <Link href="/account" className="hover:text-[#264653] transition-colors">
-            Account
+          <Link href="/account" className="hover:text-black transition-colors">
+            ACCOUNT
           </Link>
           <span>/</span>
-          <span className="text-[#264653] font-bold">Order Tracking</span>
-        </div>
+          <span className="text-black font-bold">MY ORDERS</span>
+        </nav>
 
-        <div className="border-b border-stitch pb-space-lg mb-space-2xl flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div className="border-b border-[#E5E7EB] pb-6 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <span className="font-label-caps text-label-caps text-[#2A9D8F] uppercase tracking-widest font-bold">
-              Atelier Logistics
+            <span className="text-xs font-bold uppercase tracking-[1.5px] text-[#051A6E]">
+              PARCEL TRACKING &amp; DISPATCHES
             </span>
-            <h1 className="font-headline-lg text-headline-lg text-[#264653] mt-1">
-              ORDER HISTORY &amp; DISPATCHES
+            <h1 className="text-2xl sm:text-3xl font-bold uppercase tracking-tight text-black mt-1">
+              ORDER HISTORY
             </h1>
-            <p className="font-body-md text-[#474741] mt-1">
-              Insured parcel dispatches and tailored packaging history for {user.fullName}.
+            <p className="text-xs sm:text-sm text-gray-600 mt-1">
+              Order archive and shipment status for {user.fullName || user.email}.
             </p>
           </div>
-          <span className="text-xs font-semibold uppercase text-[#474741]">
-            {orders.length} {orders.length === 1 ? "Order Recorded" : "Orders Recorded"}
+          <span className="text-xs font-bold uppercase text-gray-500">
+            {orders.length} {orders.length === 1 ? "ORDER" : "ORDERS"}
           </span>
         </div>
 
         {/* Empty State */}
         {orders.length === 0 ? (
-          <div className="bg-surface-container-low p-space-2xl sm:p-16 border border-stitch rounded-xs text-center max-w-2xl mx-auto shadow-xs">
-            <div className="w-16 h-16 rounded-full bg-[#2A9D8F]/10 border border-[#2A9D8F]/30 mx-auto flex items-center justify-center text-[#2A9D8F] mb-6">
+          <div className="bg-white p-12 sm:p-16 border border-[#E5E7EB] text-center max-w-2xl mx-auto">
+            <div className="w-16 h-16 rounded-full bg-gray-100 mx-auto flex items-center justify-center text-gray-400 mb-6">
               <PackageOpen className="w-8 h-8" />
             </div>
 
-            <h2 className="font-headline-md text-2xl font-serif text-[#264653]">
-              No Orders Placed Yet
+            <h2 className="text-xl sm:text-2xl font-bold uppercase tracking-tight text-black">
+              NO ORDERS PLACED YET
             </h2>
 
-            <p className="font-body-md text-sm text-[#474741] mt-3 max-w-md mx-auto leading-relaxed">
-              Your archive currently holds no historical dispatches. When you complete an order, courier airway bills, tailored parcel checkpoints, and delivery status will appear here in real time.
+            <p className="text-xs sm:text-sm text-gray-600 mt-2 max-w-md mx-auto leading-relaxed">
+              When you complete an order, airway tracking bills, courier milestones, and delivery checkpoints will be updated here in real time.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/collections/men"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#264653] hover:bg-[#2A9D8F] text-white text-xs font-semibold uppercase tracking-widest rounded-2xs transition-all shadow-xs focus-luxury"
+                className="btn-primary w-full sm:w-auto px-6 h-11 inline-flex items-center justify-center gap-2"
               >
-                <span>Explore Men&apos;s Collection</span>
+                <span>SHOP MEN&apos;S COLLECTION</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/collections/boys"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-surface hover:bg-white text-[#264653] border border-stitch text-xs font-semibold uppercase tracking-widest rounded-2xs transition-all shadow-xs focus-luxury"
+                className="btn-secondary w-full sm:w-auto px-6 h-11 inline-flex items-center justify-center gap-2"
               >
-                <span>Explore Boys&apos; Collection</span>
+                <span>SHOP BOYS&apos; COLLECTION</span>
               </Link>
-            </div>
-
-            <div className="mt-8 pt-6 border-t border-stitch/60 flex items-center justify-center gap-2 text-[11px] text-[#8a8a82]">
-              <ShieldCheck className="w-4 h-4 text-[#2A9D8F]" />
-              <span>Authenticated Patron Account &bull; All Transactions in INR (₹)</span>
             </div>
           </div>
         ) : (
@@ -135,25 +132,25 @@ function OrdersContent({ user, orders }: { user: OrdersUser; orders: OrderWithDe
             {orders.map((order) => (
               <div
                 key={order.id}
-                className="bg-surface-container-low border border-stitch rounded-xs overflow-hidden shadow-xs hover:border-[#264653]/40 transition-colors"
+                className="bg-white border border-[#E5E7EB] hover:border-black transition-colors rounded-none overflow-hidden"
               >
                 {/* Order Top Bar */}
-                <div className="p-5 bg-surface border-b border-stitch flex flex-wrap items-center justify-between gap-4 text-xs">
-                  <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                <div className="p-4 sm:p-5 bg-gray-50 border-b border-[#E5E7EB] flex flex-wrap items-center justify-between gap-4 text-xs font-futura">
+                  <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
                     <div>
-                      <span className="block text-[10px] font-label-caps uppercase text-[#8a8a82] font-semibold">
-                        Order Number
+                      <span className="block text-[10px] uppercase text-gray-500 font-bold">
+                        ORDER NUMBER
                       </span>
-                      <span className="font-mono font-bold text-[#264653] text-sm">
+                      <span className="font-mono font-bold text-black text-sm">
                         {order.orderNumber}
                       </span>
                     </div>
 
                     <div>
-                      <span className="block text-[10px] font-label-caps uppercase text-[#8a8a82] font-semibold">
-                        Date Placed
+                      <span className="block text-[10px] uppercase text-gray-500 font-bold">
+                        DATE PLACED
                       </span>
-                      <span className="font-medium text-[#474741]">
+                      <span className="font-bold text-black">
                         {new Date(order.createdAt).toLocaleDateString("en-IN", {
                           day: "numeric",
                           month: "short",
@@ -163,10 +160,10 @@ function OrdersContent({ user, orders }: { user: OrdersUser; orders: OrderWithDe
                     </div>
 
                     <div>
-                      <span className="block text-[10px] font-label-caps uppercase text-[#8a8a82] font-semibold">
-                        Total Amount
+                      <span className="block text-[10px] uppercase text-gray-500 font-bold">
+                        TOTAL AMOUNT
                       </span>
-                      <span className="font-bold text-[#264653]">
+                      <span className="font-bold text-black">
                         {formatInr(order.totalInr)}
                       </span>
                     </div>
@@ -176,37 +173,37 @@ function OrdersContent({ user, orders }: { user: OrdersUser; orders: OrderWithDe
                     <StatusBadge status={order.status} />
                     <Link
                       href={`/orders/${order.id}`}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#264653] hover:bg-[#2A9D8F] text-white text-xs font-semibold uppercase tracking-wider rounded-2xs transition-colors"
+                      className="btn-primary h-9 px-4 text-xs uppercase font-bold tracking-wider inline-flex items-center gap-1.5"
                     >
-                      <span>View Details</span>
+                      <span>VIEW DETAILS</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 </div>
 
                 {/* Items Preview */}
-                <div className="p-5 divide-y divide-stitch/60">
+                <div className="p-5 divide-y divide-[#E5E7EB]">
                   {order.items.map((item) => (
                     <div key={item.id} className="py-3 first:pt-0 last:pb-0 flex items-center gap-4">
-                      <div className="relative w-12 h-16 bg-surface rounded-2xs overflow-hidden shrink-0 border border-stitch">
+                      <div className="relative w-14 h-18 bg-gray-100 overflow-hidden shrink-0 border border-[#E5E7EB]">
                         <Image
                           src={item.imageUrl || "/assets/reference/prod_linen_shirt.jpg"}
                           alt={item.productTitle}
                           fill
                           className="object-cover object-top"
-                          sizes="48px"
+                          sizes="56px"
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-headline-sm text-sm font-serif text-[#264653] truncate">
+                        <h4 className="text-xs sm:text-sm font-bold uppercase text-black truncate">
                           {item.productTitle}
                         </h4>
-                        <p className="font-label-caps text-[11px] text-[#474741] uppercase tracking-wider mt-0.5">
-                          Size: {item.size} &bull; Shade: {item.color} &bull; Qty: {item.quantity}
+                        <p className="text-[11px] text-gray-500 uppercase tracking-wider mt-0.5">
+                          Size: {item.size} &bull; Colour: {item.color} &bull; Qty: {item.quantity}
                         </p>
                       </div>
                       <div className="text-right">
-                        <span className="text-xs font-bold text-[#264653]">
+                        <span className="text-xs font-bold text-black">
                           {formatInr(item.lineTotalInr)}
                         </span>
                       </div>
@@ -224,17 +221,15 @@ function OrdersContent({ user, orders }: { user: OrdersUser; orders: OrderWithDe
 
 export default function OrdersClient({ user, orders = [] }: { user: OrdersUser; orders?: OrderWithDetails[] }) {
   return (
-    <CartProvider>
-      <div className="flex flex-col min-h-screen bg-surface">
-        <Header />
-        <OrdersContent user={user} orders={orders} />
-        <Footer />
-        <CartDrawer />
-        <SearchModal />
-        <SizeGuideModal />
-        <ToastNotification />
-        <AiAssistantWidget />
-      </div>
-    </CartProvider>
+    <div className="flex flex-col min-h-screen bg-white">
+      <Header />
+      <OrdersContent user={user} orders={orders} />
+      <Footer />
+      <CartDrawer />
+      <SearchModal />
+      <SizeGuideModal />
+      <ToastNotification />
+      <AiAssistantWidget />
+    </div>
   );
 }

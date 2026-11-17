@@ -83,9 +83,6 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  experimental: {
-    agentUpgrade: "security",
-  } as Record<string, unknown>,
 };
 
 export default nextConfig;
